@@ -9,18 +9,22 @@ def getInfoFromCommand(command, parameters = False, categories = False):
     data = {}
     category = []
     if (command in defaultFunctions.getCommandsDict()):
-        description = defaultFunctions.getCommandsDict()[command]["description"]
+        if "description" in defaultFunctions.getCommandsDict()[command]:
+            description = defaultFunctions.getCommandsDict()[command]["description"]
         if "parameters" in defaultFunctions.getCommandsDict()[command]:
             data = defaultFunctions.getCommandsDict()[command]["parameters"]
         if "category" in defaultFunctions.getCommandsDict()[command]:
             category = defaultFunctions.getCommandsDict()[command]["category"]
     returnText = ''
-    returnText += f'The description: \'{description}\'\n'
+    if (description != ""):
+        returnText += f'The description: \'{description}\'\n'
+    else:
+        returnText += f'The command has no description\n'
     if (parameters):
         if len(data) == 0:
-            returnText = f'The \"{command}\" command has no parameters'
+            returnText += f'The \"{command}\" command has no parameters'
         else:
-            returnText = f'The parameters of the \"{command}\" command are:\n'
+            returnText += f'The parameters of the \"{command}\" command are:\n'
             for key in list(data.keys()):
                 if ("description" in data[key] and data[key]["description"] != ""):
                     returnText += f'{data[key]["given"]}: {data[key]["description"]}\n'
@@ -38,7 +42,7 @@ def getInfoFromCommand(command, parameters = False, categories = False):
         returnText = description
     return returnText
     
-def listCommands(filerCategory = '', maxCharacters: int = 40):
+def listCommands(filerCategory = '', maxCharacters: int = 40, listCategories: bool = False):
     logger.debug(f'listCommands called')
     if (filerCategory != ''):
         returnText = f'The commands with the filter "{filerCategory}" are:\n'
@@ -53,3 +57,29 @@ def listCommands(filerCategory = '', maxCharacters: int = 40):
     if (returnText == 'The commands are:\n'):
         returnText = f'No commands found with filter "{filerCategory}"'
     return returnText   
+
+def getCommandData(command):
+    logger.debug(f'getCommandData called: {command}')
+    if (command in defaultFunctions.getCommandsDict()):
+        return defaultFunctions.getCommandsDict()[command]
+    else:
+        return False
+    
+def loadDefaultCommands(force, overwrite):
+    import shared.setup as setup
+    logger.debug(f'command called: {force}, {overwrite}')
+    if (overwrite == True):
+        text = "Are you sure you want to overwrite the current default commands? (y/n)"
+    else:
+        text = "Are you sure you want to reload the current default commands? (y/n)"
+    if (force != True):
+        textHandling.textController(text)
+        confirm = input()
+        if overwrite == True:
+            logger.warning(f'overwritten defaultFunctions.json with hardcoded default commands')
+        if (force == True or confirm.lower() == "y"):
+            return setup.createJsonIfNotExists("configuration/defaultFunctions.json", setup.defaultCommands, overwrite)
+    else:
+        if overwrite == True:
+            logger.warning(f'overwritten defaultFunctions.json with hardcoded default commands')
+        return setup.createJsonIfNotExists("configuration/defaultFunctions.json", setup.defaultCommands, overwrite)

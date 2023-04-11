@@ -8,8 +8,7 @@ import handlers.textHandling as textHandling
 def givenInput(input):
     logger.debug(f'givenInput called: {input}')
     splittedCommand = defaultFunctions.stripQuotesFromArray(defaultFunctions.splitForCommand(input))
-    defaultData = setup.readJson("configuration/defaultData.json")
-    defaultCommand = defaultData["defaultCommands"]
+    defaultCommand = defaultFunctions.getCommandsDict()
     if (splittedCommand[0] in defaultCommand):
         parameters = {}
         emptyParams = []
@@ -22,6 +21,7 @@ def givenInput(input):
                     splittedCommand.pop(given_value_index -1)
                 else:
                     emptyParams.append(param_name)
+            logger.debug(f'params needed: {emptyParams}')
             if len(emptyParams) > 0 and len(defaultCommand[splittedCommand[0]]["parameters"]) > 0:
                 loop = 0
                 for item in splittedCommand:
