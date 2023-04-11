@@ -6,6 +6,7 @@ import shared.setup as setup
 import handlers.textHandling as textHandling
 
 def givenInput(input):
+    logger.debug(f'givenInput called: {input}')
     splittedCommand = defaultFunctions.stripQuotesFromArray(defaultFunctions.splitForCommand(input))
     defaultData = setup.readJson("configuration/defaultData.json")
     defaultCommand = defaultData["defaultCommands"]
@@ -41,7 +42,13 @@ def givenInput(input):
         else:
             function = defaultCommand[splittedCommand[0]]["function"]
         logger.debug(f'func: {function}')
-        exec(function)
+        try:
+            exec(function)
+        except Exception as e:
+            logger.error(f'Error: {e}')
+            textHandling.textController(f'Error: {e}')
+
+    
 
     # logger.debug(f'givenInput called: {input}')
     # if (input == "exit"):

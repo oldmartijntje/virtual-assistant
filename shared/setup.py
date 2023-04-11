@@ -72,7 +72,62 @@ defaultData ={
                     "description": "the amount of characters to display per item"
                 }
             }
-        }
+        },
+        "mkfile": {
+            "description": "Creates a file",
+            "function": """file = open(\"{}/{}.{}\", \"a\")
+file.write("{}")
+file.close()""",
+            "parameters": {
+                "var1": {
+                    "default": "configuration",
+                    "given": "-path",
+                    "description": "The path to the file"
+                },
+                "var2": {
+                    "default": "test",
+                    "given": "-name",
+                    "description": "The name of the file"
+                },
+                "var3": {
+                    "default": "txt",
+                    "given": "-extension",
+                    "description": "The extension of the file"
+                },
+                "var4": {
+                    "default": "Hello World!",
+                    "given": "-content",
+                    "description": "The content of the file"
+                }
+            }
+        },
+        "mkfolder": {
+            "description": "Creates a folder",
+            "function": "os.makedirs(\"{}\")",
+            "parameters": {
+                "var1": {
+                    "default": "configuration",
+                    "given": "-path",
+                    "description": "The path to the folder"
+                }
+            }
+        },
+        "delFile": {
+            "description": "Deletes a file",
+            "function": "os.remove(\"{}/{}\")",
+            "parameters": {
+                "var1": {
+                    "default": "configuration",
+                    "given": "-path",
+                    "description": "The path to the file"
+                },
+                "var2": {
+                    "default": "test.txt",
+                    "given": "-file",
+                    "description": "The file to delete"
+                }
+            }
+        },
     }
 }
 
