@@ -35,6 +35,7 @@ MANIFEST
 
 # my code
 settings.json
+defaultData.json
 configuration/presetData
 
 # Installer logs
