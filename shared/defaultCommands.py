@@ -4,7 +4,7 @@ import model.preset as preset
 import handlers.textHandling as textHandling
 
 def getInfoFromCommand(command, parameters = False, categories = False):
-    logger.debug(f'getInfoFromCommand called: {command}, {parameters}')
+    logger.debug(f'getInfoFromCommand called: {command}, {parameters}, {categories}')
     description = ""
     data = {}
     category = []
@@ -22,7 +22,7 @@ def getInfoFromCommand(command, parameters = False, categories = False):
         returnText += f'The command has no description\n'
     if (parameters):
         if len(data) == 0:
-            returnText += f'The \"{command}\" command has no parameters'
+            returnText += f'The \"{command}\" command has no parameters\n'
         else:
             returnText += f'The parameters of the \"{command}\" command are:\n'
             for key in list(data.keys()):
@@ -32,14 +32,12 @@ def getInfoFromCommand(command, parameters = False, categories = False):
                     returnText += f'{data[key]["given"]}: No description\n'
     if (categories):
         if len(category) == 0:
-            returnText = f'The \"{command}\" command has no categories'
+            returnText += f'The \"{command}\" command has no categories\n'
         else:
             returnText += f'Has these categories: \n'
             for item in category:
                 returnText += f'\'{item}\', '
             returnText = returnText[:-2]
-    else :
-        returnText = description
     return returnText
     
 def listCommands(filerCategory = '', maxCharacters: int = 40, listCategories: bool = False):

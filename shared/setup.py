@@ -253,8 +253,63 @@ failsafeCommands = {
         "function": "textHandling.textController(\"The original \\\"help\\\" command is deleted somehow, run 'loadDefaultCommands -force True -overwrite True' to reset the default commands.\")",
         "category": ["default", "help", "failsafe"]
     }
-
 }
+
+defaultPresetCommands = {
+    "preset" : {
+        "description": "Set name of preset, or more with parameters.",
+        "function": """name = \"{}\";save = {};load = \"{}\";
+if name == \"\" and save == False and load == \"\": 
+    textHandling.textController(\"Preset Loaded: \" + str(preset.getPreset())); 
+if name != \"\": 
+    preset.setName(name); 
+if save == True: 
+    preset.savePreset(); 
+if load != \"\": 
+    preset.loadPreset(load)""",
+        "parameters": {
+            "var1": {
+                "default": "",
+                "given": "-name",
+                "description": "Set the name of the preset."
+            },
+            "var2": {
+                "default": "False",
+                "given": "-save",
+                "description": "Save the current preset."
+            },
+            "var3": {
+                "default": "",
+                "given": "-load",
+                "description": "Load a preset."
+            }
+        },
+        "category": ["default", "preset"]
+    }
+}
+
+lessImportantCommands = {
+    "cmd": {
+        "description": "Launches commandprompt.",
+        "function": """command = \"{}\";import os;
+if command == \"\":
+    os.system(\"cmd\");
+else: 
+    os.system(\"cmd /c \" + command)""",
+        "parameters": {
+            "var1": {
+                "default": "",
+                "given": "-cmd",
+                "description": "An command to run in the commandprompt."
+            }
+        },
+        "category": ["default", "tool", "less important"]
+    },
+}
+
+
+defaultCommands.update(defaultPresetCommands)
+defaultCommands.update(lessImportantCommands)
 
 def createJsonIfNotExists(path, data = defaultSettings, overwrite = False):
     import os, json

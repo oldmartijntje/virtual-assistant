@@ -65,10 +65,10 @@ def getPreset():
     return currentPreset.presetName
 
 def savePreset():
-    pass
+    textHandling.textController(f"Preset save placeholder")
 
 def loadPreset(presetName):
-    pass
+    textHandling.textController(f"Preset load placeholder")
 
 def setName(name):
     global currentPreset
