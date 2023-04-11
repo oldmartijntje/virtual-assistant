@@ -76,3 +76,8 @@ def setName(name):
     logger.info(f'Preset name set to: {currentPreset.presetName}')
     textHandling.textController(f"Preset name set to: {currentPreset.presetName}")
     return currentPreset.presetName
+
+def getCommands():
+    defaultCommand= {
+    }
+    return defaultCommand

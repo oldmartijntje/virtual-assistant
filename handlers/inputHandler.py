@@ -1,38 +1,26 @@
 from shared.logger import logger
-defaultCommand= {
-    "exit": {
-        "description": "Exits the program",
-        "function": 'exit()',
-        "parameters": {}
-    },
-    "print": {
-        "description": "Prints the given text",
-        "function": 'print({})',
-        "parameters": {"var1": {"default": "'Hello World!'", "given": "-name"}}
-    },
-    "test": {
-        "description": "Test command",
-        "function": 'print({}, {})',
-        "parameters": {"var1": {"default": "'Hello'", "given": "-name"},
-                       "var2": {"default": "'World!'", "given": "-desc"}
-        }
-    }
-}
+import shared.defaultFunctions as defaultFunctions
+import shared.defaultCommands as defaultCommands
+import model.preset as preset
+import shared.setup as setup
+import handlers.textHandling as textHandling
 
 def givenInput(input):
-    import model.preset as preset
-    import handlers.textHandling as textHandling
-    splittedCommand = splitForCommand(input)
-
+    splittedCommand = defaultFunctions.stripQuotesFromArray(defaultFunctions.splitForCommand(input))
+    defaultData = setup.readJson("configuration/defaultData.json")
+    defaultCommand = defaultData["defaultCommands"]
     if (splittedCommand[0] in defaultCommand):
         parameters = []
-        for param_name, param_info in defaultCommand[splittedCommand[0]]["parameters"].items():
-            if param_info["given"] in splittedCommand and splittedCommand.index(param_info["given"]) + 1 < len(splittedCommand):
-                given_value_index = splittedCommand.index(param_info["given"]) + 1
-                parameters.append(splittedCommand[given_value_index])
-            else:
-                parameters.append(param_info["default"])
-        function = defaultCommand[splittedCommand[0]]["function"].format(*parameters)
+        if "parameters" in defaultCommand[splittedCommand[0]]:
+            for param_name, param_info in defaultCommand[splittedCommand[0]]["parameters"].items():
+                if param_info["given"] in splittedCommand and splittedCommand.index(param_info["given"]) + 1 < len(splittedCommand):
+                    given_value_index = splittedCommand.index(param_info["given"]) + 1
+                    parameters.append(splittedCommand[given_value_index])
+                else:
+                    parameters.append(param_info["default"])
+            function = defaultCommand[splittedCommand[0]]["function"].format(*parameters)
+        else:
+            function = defaultCommand[splittedCommand[0]]["function"]
         exec(function)
 
     # logger.debug(f'givenInput called: {input}')
@@ -63,15 +51,6 @@ def givenInput(input):
     #     textHandling.textController("Invalid input")
     #     return False
     
-def splitForCommand(input):
-    import re
-    logger.debug(f'splitting input: {input}')
-    split_command = re.findall(r'(?:[^\s,"\']|"(?:\\.|[^"])*"|\'(?:\\.|[^\'])*\')+', input)
-    logger.debug(f'splitted output: {split_command}')
-    return split_command
 
-def stripQuotesFromArray(split_command):
-    logger.debug(f'stripping quotes from input: {split_command}')
-    split_command = [word.strip("'\"") for word in split_command]
-    logger.debug(f'stripped output: {split_command}')
-    return split_command
+
+    
