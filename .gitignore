@@ -35,6 +35,7 @@ MANIFEST
 
 # my code
 settings.json
+configuration/
 
 # Installer logs
 pip-log.txt

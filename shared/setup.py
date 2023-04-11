@@ -44,3 +44,6 @@ def create_directory(path):
     import os
     if not os.path.exists(path):
         os.makedirs(path)
+
+create_directory("configuration")
+create_directory("configuration/presetData")
