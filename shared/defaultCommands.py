@@ -26,12 +26,12 @@ def getInfoFromCommand(command, parameters = False):
         returnText = description
     return returnText
     
-def listCommands():
+def listCommands(maxCharacters: int = 40):
     logger.debug(f'listCommands called')
     returnText = 'The commands are:\n'
     for key in list(defaultFunctions.getCommandsDict().keys()):
         if "description" in defaultFunctions.getCommandsDict()[key]:
-            returnText += f'{key}: {defaultFunctions.maxLength(defaultFunctions.getCommandsDict()[key]["description"])}\n'
+            returnText += f'{key}: {defaultFunctions.maxLength(defaultFunctions.getCommandsDict()[key]["description"], maxCharacters)}\n'
         else:
             returnText += f'{key}: No description\n'
     return returnText   

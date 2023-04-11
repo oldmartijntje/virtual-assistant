@@ -43,21 +43,7 @@ defaultData ={
             "parameters": {
                 "var1": {
                     "default": "Hello World!",
-                    "given": "-name"
-                }
-            }
-        },
-        "test": {
-            "description": "Test command",
-            "function": "print(\"{}\", \"{}\")",
-            "parameters": {
-                "var1": {
-                    "default": "Hello",
-                    "given": "-name"
-                },
-                "var2": {
-                    "default": "World!",
-                    "given": "-desc"
+                    "given": "-txt"
                 }
             }
         },
@@ -79,7 +65,13 @@ defaultData ={
         },
         "list": {
             "description": "Lists all commands",
-            "function": "textHandling.textController(defaultCommands.listCommands())"
+            "function": "textHandling.textController(defaultCommands.listCommands({}))",
+            "parameters": {"var1": {
+                    "default": "40",
+                    "given": "-amount",
+                    "description": "the amount of characters to display per item"
+                }
+            }
         }
     }
 }

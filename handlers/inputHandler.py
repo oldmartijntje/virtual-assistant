@@ -10,17 +10,37 @@ def givenInput(input):
     defaultData = setup.readJson("configuration/defaultData.json")
     defaultCommand = defaultData["defaultCommands"]
     if (splittedCommand[0] in defaultCommand):
-        parameters = []
+        parameters = {}
+        emptyParams = []
         if "parameters" in defaultCommand[splittedCommand[0]]:
             for param_name, param_info in defaultCommand[splittedCommand[0]]["parameters"].items():
                 if param_info["given"] in splittedCommand and splittedCommand.index(param_info["given"]) + 1 < len(splittedCommand):
                     given_value_index = splittedCommand.index(param_info["given"]) + 1
-                    parameters.append(splittedCommand[given_value_index])
+                    parameters[param_name] = splittedCommand[given_value_index]
+                    splittedCommand.pop(given_value_index)
+                    splittedCommand.pop(given_value_index -1)
                 else:
-                    parameters.append(param_info["default"])
-            function = defaultCommand[splittedCommand[0]]["function"].format(*parameters)
+                    emptyParams.append(param_name)
+            if len(emptyParams) > 0 and len(defaultCommand[splittedCommand[0]]["parameters"]) > 0:
+                loop = 0
+                for item in splittedCommand:
+                    loop +=1
+                    if loop == 1:
+                        pass
+                    elif len(emptyParams) > 0 and len(defaultCommand[splittedCommand[0]]["parameters"]) > 0:
+                        parameters[emptyParams[0]] = item
+                        emptyParams.pop(0)
+                if len(emptyParams) > 0:
+                    for item in emptyParams:
+                        parameters[item] = defaultCommand[splittedCommand[0]]["parameters"][item]["default"]
+
+
+            function = defaultCommand[splittedCommand[0]]["function"].format(*defaultFunctions.dictToList(parameters, defaultCommand[splittedCommand[0]]["parameters"]))
+            logger.debug(f'given value: {function}')
+            
         else:
             function = defaultCommand[splittedCommand[0]]["function"]
+        logger.debug(f'func: {function}')
         exec(function)
 
     # logger.debug(f'givenInput called: {input}')

@@ -28,3 +28,16 @@ def maxLength(text, amount = 40):
         return text[:amount] + "..."
     else:
         return text
+    
+def dictToList(dictionary, order):
+    logger.debug(f'ordering: {dictionary.values()}')
+    returnList = list(dictionary.values())
+    returnListKeys = list(dictionary.keys())
+    returnListInOrder = []
+    order = list(order.keys())
+    for item in order:
+        for key in returnListKeys:
+            if key == item:
+                returnListInOrder.append(dictionary[key])
+                logger.debug(f'order: {returnListInOrder}')
+    return returnListInOrder
