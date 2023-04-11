@@ -31,8 +31,6 @@ defaultPresetHandler = {
 }
 
 def createJsonIfNotExists(path, data = defaultSettings):
-    if (data["logging"]["enabled"] == True):
-        create_directory(data["logging"]["folder"])
     import os, json
     if not os.path.exists(path):
         with open(path, "w") as f:
@@ -51,6 +49,10 @@ def create_directory(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
+createJsonIfNotExists("configuration/settings.json")
+settings = readJson("configuration/settings.json")
+if (settings["logging"]["enabled"] == True):
+        create_directory(settings["logging"]["folder"])
 create_directory("configuration")
 create_directory("configuration/presetData")
 createJsonIfNotExists("configuration/presetData/presetHandler.json", defaultPresetHandler)
