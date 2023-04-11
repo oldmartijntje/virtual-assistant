@@ -35,7 +35,8 @@ defaultData ={
         "exit": {
             "description": "Exits the program",
             "function": "exit()",
-            "parameters": {}
+            "parameters": {},
+            "category": ["default"]
         },
         "print": {
             "description": "Prints the given text",
@@ -45,11 +46,12 @@ defaultData ={
                     "default": "Hello World!",
                     "given": "-txt"
                 }
-            }
+            },
+            "category": ["default"]
         },
         "help": {
             "description": "Displays help of any command, or itself if no command is given.\nUse '-params True' to display the parameters of the command.",
-            "function": "textHandling.textController(defaultCommands.getInfoFromCommand(\"{}\", {}))",
+            "function": "textHandling.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}))",
             "parameters": {
                 "var1": {
                     "default": "help",
@@ -60,24 +62,35 @@ defaultData ={
                     "default": "False",
                     "given": "-params",
                     "description": "Give the parameters of the command"
+                },
+                "var3": {
+                    "default": "False",
+                    "given": "-category",
+                    "description": "Show the category of the command"
                 }
-            }
+            },
+            "category": ["default", "help"]
         },
         "list": {
             "description": "Lists all commands",
-            "function": "textHandling.textController(defaultCommands.listCommands({}))",
-            "parameters": {"var1": {
+            "function": "textHandling.textController(defaultCommands.listCommands(\"{}\", {}))",
+            "parameters": {
+                "var1": {
+                    "default": "",
+                    "given": "-category",
+                    "description": "The category to list"
+                },
+                "var2": {
                     "default": "40",
                     "given": "-amount",
                     "description": "the amount of characters to display per item"
                 }
-            }
+            },
+            "category": ["default", "help"]
         },
         "mkfile": {
             "description": "Creates a file",
-            "function": """file = open(\"{}/{}.{}\", \"a\")
-file.write("{}")
-file.close()""",
+            "function": """file = open(\"{}/{}.{}\", \"a\");file.write("{}");file.close()""",
             "parameters": {
                 "var1": {
                     "default": "configuration",
@@ -99,7 +112,8 @@ file.close()""",
                     "given": "-content",
                     "description": "The content of the file"
                 }
-            }
+            },
+            "category": ["default", "file"]
         },
         "mkfolder": {
             "description": "Creates a folder",
@@ -110,7 +124,8 @@ file.close()""",
                     "given": "-path",
                     "description": "The path to the folder"
                 }
-            }
+            }, 
+            "category": ["default", "file"]
         },
         "delFile": {
             "description": "Deletes a file",
@@ -126,7 +141,8 @@ file.close()""",
                     "given": "-file",
                     "description": "The file to delete"
                 }
-            }
+            },
+            "category": ["default", "file"]
         },
     }
 }
