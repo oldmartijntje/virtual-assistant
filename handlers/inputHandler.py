@@ -11,9 +11,7 @@ def givenInput(input):
     elif (input == "preset"):
         textHandling.textController("Current preset: " + str(preset.getPreset()))
     elif ("preset -set name" in input):
-        preset.currentPreset.presetName = input.split("preset -set name ")[1]
-        logger.info("Preset name set to: " + str(preset.getPreset()))
-        textHandling.textController("Preset name set to: " + str(preset.getPreset()))
+        preset.setName(input.split("preset -set name ")[1])
     elif ("preset -save" in input):
         preset.savePreset()
     elif ("preset -load" in input):

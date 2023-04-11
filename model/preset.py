@@ -1,4 +1,5 @@
 from shared.logger import logger
+import handlers.textHandling as textHandling
 class Preset:
     """
     A brief description of what the class does.
@@ -30,7 +31,33 @@ class Preset:
         """
         # implementation here
 
+class PresetHandler:
+
+    
+    def __init__(self, data={}):
+        self.data = data
+        
+        logger.debug(f'created PresetHandler')
+    
+    def method1(self, arg3):
+        """
+        A brief description of what method1 does.
+
+        :param arg3: A description of the third argument.
+        :return: A description of what the method returns.
+        """
+        # implementation here
+    
+    def method2(self):
+        """
+        A brief description of what method2 does.
+
+        :return: A description of what the method returns.
+        """
+        # implementation here
+
 currentPreset = Preset()
+handler = PresetHandler()
 
 def getPreset():
     global currentPreset
@@ -42,3 +69,10 @@ def savePreset():
 
 def loadPreset(presetName):
     pass
+
+def setName(name):
+    global currentPreset
+    currentPreset.presetName = name
+    logger.info(f'Preset name set to: {currentPreset.presetName}')
+    textHandling.textController(f"Preset name set to: {currentPreset.presetName}")
+    return currentPreset.presetName

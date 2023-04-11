@@ -24,6 +24,12 @@ defaultSettings = {
     }
 }
 
+defaultPresetHandler = {
+    "presetNames": {
+        
+    }
+}
+
 def createJsonIfNotExists(path, data = defaultSettings):
     if (data["logging"]["enabled"] == True):
         create_directory(data["logging"]["folder"])
@@ -47,3 +53,4 @@ def create_directory(path):
 
 create_directory("configuration")
 create_directory("configuration/presetData")
+createJsonIfNotExists("configuration/presetData/presetHandler.json", defaultPresetHandler)
