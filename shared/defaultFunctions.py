@@ -17,7 +17,7 @@ def getCommandsDict():
     import shared.defaultFunctions as defaultFunctions
     import shared.setup as setup
     commands = {}
-    defaultCommand = setup.readJson("configuration/defaultFunctions.json")
+    defaultCommand = setup.readJson("configuration/defaultCommands.json")
     commands.update(setup.failsafeCommands)
     commands.update(defaultCommand)
     commands.update(preset.getCommands())

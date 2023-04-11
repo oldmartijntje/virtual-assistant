@@ -37,6 +37,7 @@ MANIFEST
 settings.json
 defaultData.json
 defaultFunctions.json
+defaultCommands.json
 configuration/presetData
 
 # Installer logs

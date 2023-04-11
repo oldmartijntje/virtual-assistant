@@ -21,6 +21,9 @@ defaultSettings = {
         "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         "filenameWithDatetimeFormatting": "VBBQD%Y-%m-%d_%H",
         "appName" : "virtualBBQduck"
+    },
+    "startup": {
+        "startupCommands": ["print -txt \"Welcome to the virtual BBQ duck!\n\nType any command to begin\nIf you find yourself stuck, 'help' and 'list' might help you!\""]
     }
 }
 
@@ -337,4 +340,4 @@ if (settings["logging"]["enabled"] == True):
 create_directory("configuration")
 create_directory("configuration/presetData")
 createJsonIfNotExists("configuration/presetData/presetHandler.json", defaultPresetHandler)
-createJsonIfNotExists("configuration/defaultFunctions.json", defaultCommands)
+createJsonIfNotExists("configuration/defaultCommands.json", defaultCommands)
