@@ -38,7 +38,7 @@ defaultPresetHandler = {
     }
 }
 
-defaultCommands ={
+defaultCommands = {
     "exit": {
         "description": "Exits the program.",
         "function": "exit()",
