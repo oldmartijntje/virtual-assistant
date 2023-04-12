@@ -345,7 +345,7 @@ lessImportantCommands = {
 if command == \"\":
     os.system(\"cmd\");
 else: 
-    os.system(\"cmd /c \" + command)""",
+    os.system(\"cmd /k \" + command)""",
         "parameters": {
             "var1": {
                 "default": "",
