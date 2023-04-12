@@ -74,10 +74,10 @@ def loadDefaultCommands(force, overwrite, chatEffect1):
         textHandling.textController(text, chatEffect=chatEffect1)
         confirm = input()
         if overwrite == True:
-            logger.warning(f'overwritten defaultFunctions.json with hardcoded default commands')
+            logger.warning(f'overwritten defaultCommands.json with hardcoded default commands')
         if (force == True or confirm.lower() == "y"):
-            return setup.createJsonIfNotExists("configuration/defaultFunctions.json", setup.defaultCommands, overwrite)
+            return setup.createJsonIfNotExists("configuration/defaultCommands.json", setup.defaultCommands, overwrite)
     else:
         if overwrite == True:
-            logger.warning(f'overwritten defaultFunctions.json with hardcoded default commands')
-        return setup.createJsonIfNotExists("configuration/defaultFunctions.json", setup.defaultCommands, overwrite)
+            logger.warning(f'overwritten defaultCommands.json with hardcoded default commands')
+        return setup.createJsonIfNotExists("configuration/defaultCommands.json", setup.defaultCommands, overwrite)
