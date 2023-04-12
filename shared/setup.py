@@ -53,7 +53,7 @@ defaultCommands ={
     },
     "help": {
         "description": "Displays help of any command, or itself if no command is given.\nUse '-params True' to display the parameters of the command.",
-        "function": "textHandling.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}))",
+        "function": "textHandling.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}), chatEffect = {})",
         "parameters": {
             "var1": {
                 "default": "help",
@@ -69,13 +69,18 @@ defaultCommands ={
                 "default": "False",
                 "given": "-category",
                 "description": "Show the category of the command."
+            },
+            "var4": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "help"]
     },
     "list": {
         "description": "Lists all commands and/or categories.",
-        "function": "textHandling.textController(defaultCommands.listCommands(\"{}\", {}, {}))",
+        "function": "textHandling.textController(defaultCommands.listCommands(\"{}\", {}, {}), chatEffect = {})",
         "parameters": {
             "var1": {
                 "default": "",
@@ -91,6 +96,11 @@ defaultCommands ={
                 "default": "False",
                 "given": "-lCategories",
                 "description": "List all categories."
+            },
+            "var4": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "help"]
@@ -165,7 +175,7 @@ defaultCommands ={
     },
     "readFile": {
         "description": "Reads a file.",
-        "function": "file = open(\"{}/{}\", \"r\");textHandling.textController(file.read());file.close()",
+        "function": "file = open(\"{}/{}\", \"r\");textHandling.textController(file.read(), chatEffect = {});file.close()",
         "parameters": {
             "var1": {
                 "default": "configuration",
@@ -176,6 +186,11 @@ defaultCommands ={
                 "default": "test.txt",
                 "given": "-file",
                 "description": "The file to read."
+            },
+            "var3": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "file"]
@@ -204,19 +219,24 @@ defaultCommands ={
     },
     "cmdPrint" : { 
         "description": "Prints command from a command.",
-        "function": "command=\"{}\";textHandling.textController(defaultCommands.getCommandData(command) if defaultCommands.getCommandData(command) != False else \"Command not found\")",
+        "function": "command=\"{}\";textHandling.textController((defaultCommands.getCommandData(command) if defaultCommands.getCommandData(command) != False else \"Command not found\"), chatEffect = {})",
         "parameters": {
             "var1": {
                 "default": "help",
                 "given": "-cmd",
                 "description": "The command to print."
+            },
+            "var2": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "coding", "debug"]
     },
     "loadDefaultCommands": {
         "description": "Loads the default commands.",
-        "function": "defaultCommands.loadDefaultCommands({}, {})",
+        "function": "defaultCommands.loadDefaultCommands({}, {}, {})",
         "parameters": {
             "var1": {
                 "default": "False",
@@ -227,6 +247,11 @@ defaultCommands ={
                 "default": "False",
                 "given": "-overwrite",
                 "description": "If True, the default commands will overwrite the current commands in DefaultData.json and then load them.\nThis is a reset command, it will reset the default commands to the default commands hardcoded."
+            },
+            "var3": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "debug"]
@@ -236,7 +261,7 @@ defaultCommands ={
 failsafeCommands = {
     "loadDefaultCommands": {
         "description": "Loads the default commands.",
-        "function": "defaultCommands.loadDefaultCommands({}, {})",
+        "function": "defaultCommands.loadDefaultCommands({}, {}, {})",
         "parameters": {
             "var1": {
                 "default": "False",
@@ -247,13 +272,25 @@ failsafeCommands = {
                 "default": "False",
                 "given": "-overwrite",
                 "description": "If True, the default commands will overwrite the current commands in DefaultData.json and then load them.\nThis is a reset command, it will reset the default commands to the default commands hardcoded."
+            },
+            "var3": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "debug", "failsafe"]
     },
     "help" : {
         "description": "Prints the help menu.",
-        "function": "textHandling.textController(\"The original \\\"help\\\" command is deleted somehow, run 'loadDefaultCommands -force True -overwrite True' to reset the default commands.\")",
+        "function": "textHandling.textController(\"The original \\\"help\\\" command is deleted somehow, run 'loadDefaultCommands -force True -overwrite True' to reset the default commands.\", chatEffect = {})",
+        "parameters": {
+            "var1": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+            }
+        },
         "category": ["default", "help", "failsafe"]
     }
 }
@@ -261,15 +298,15 @@ failsafeCommands = {
 defaultPresetCommands = {
     "preset" : {
         "description": "Set name of preset, or more with parameters.",
-        "function": """name = \"{}\";save = {};load = \"{}\";
+        "function": """name = \"{}\";save = {};load = \"{}\";chatEffect1 = {};
 if name == \"\" and save == False and load == \"\": 
-    textHandling.textController(\"Preset Loaded: \" + str(preset.getPreset())); 
+    textHandling.textController(\"Preset Loaded: \" + str(preset.getPreset()), chatEffect = chatEffect1);); 
 if name != \"\": 
-    preset.setName(name); 
+    preset.setName(name, chatEffect = chatEffect1); 
 if save == True: 
-    preset.savePreset(); 
+    preset.savePreset(chatEffect = chatEffect1); 
 if load != \"\": 
-    preset.loadPreset(load)""",
+    preset.loadPreset(load, chatEffect = chatEffect1)""",
         "parameters": {
             "var1": {
                 "default": "",
@@ -285,6 +322,11 @@ if load != \"\":
                 "default": "",
                 "given": "-load",
                 "description": "Load a preset."
+            },
+            "var4": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
             }
         },
         "category": ["default", "preset"]

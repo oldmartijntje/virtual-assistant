@@ -63,7 +63,7 @@ def getCommandData(command):
     else:
         return False
     
-def loadDefaultCommands(force, overwrite):
+def loadDefaultCommands(force, overwrite, chatEffect1):
     import shared.setup as setup
     logger.debug(f'command called: {force}, {overwrite}')
     if (overwrite == True):
@@ -71,7 +71,7 @@ def loadDefaultCommands(force, overwrite):
     else:
         text = "Are you sure you want to reload the current default commands? (y/n)"
     if (force != True):
-        textHandling.textController(text)
+        textHandling.textController(text, chatEffect=chatEffect1)
         confirm = input()
         if overwrite == True:
             logger.warning(f'overwritten defaultFunctions.json with hardcoded default commands')

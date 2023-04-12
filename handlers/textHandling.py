@@ -1,4 +1,4 @@
-def textController(text, settings = {}):
+def textController(text, settings = {}, chatEffect = True):
     from shared.logger import logger
     import shared.setup as setup
     logger.debug('textController called')

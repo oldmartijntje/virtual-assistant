@@ -44,7 +44,7 @@ def givenInput(input):
             exec(function)
         except Exception as e:
             logger.error(f'Error: {e}')
-            textHandling.textController(f'Error: {e}')
+            textHandling.textController(f'Error: {e}', {}, False)
 
     
 

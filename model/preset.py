@@ -64,17 +64,17 @@ def getPreset():
     logger.debug(f'getPreset called, returning: {currentPreset.presetName}')
     return currentPreset.presetName
 
-def savePreset():
-    textHandling.textController(f"Preset save placeholder")
+def savePreset(chatEffect):
+    textHandling.textController(f"Preset save placeholder", chatEffect=chatEffect)
 
-def loadPreset(presetName):
-    textHandling.textController(f"Preset load placeholder")
+def loadPreset(presetName, chatEffect):
+    textHandling.textController(f"Preset load placeholder", chatEffect=chatEffect)
 
-def setName(name):
+def setName(name, chatEffect):
     global currentPreset
     currentPreset.presetName = name
     logger.info(f'Preset name set to: {currentPreset.presetName}')
-    textHandling.textController(f"Preset name set to: {currentPreset.presetName}")
+    textHandling.textController(f"Preset name set to: {currentPreset.presetName}", chatEffect=chatEffect)
     return currentPreset.presetName
 
 def getCommands():
