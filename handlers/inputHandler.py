@@ -5,7 +5,17 @@ import model.preset as preset
 import shared.setup as setup
 import handlers.textHandling as textHandling
 
+
+
+
 def givenInput(input):
+    logger.debug(f'loop: {preset.currentPreset.data["loop"]}')
+    preset.currentPreset.data["loop"] +=1
+    settings = setup.readJson("configuration/settings.json")
+    if preset.currentPreset.data["loop"] > settings["textSettings"]["maximumRecursion"]:	
+        logger.error('Recursion limit reached')	
+        textHandling.textController('Recursion limit reached', {}, False)	
+        return False
     logger.debug(f'givenInput called: {input}')
     splittedCommand = defaultFunctions.stripQuotesFromArray(defaultFunctions.splitForCommand(input))
     defaultCommand = defaultFunctions.getCommandsDict()

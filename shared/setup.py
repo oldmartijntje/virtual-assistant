@@ -9,7 +9,8 @@ defaultSettings = {
                 "start": "\033[4;3;1m",
                 "end": "\033[0m"
             }
-        }
+        },
+        "maximumRecursion": 10
     },
     "logging": {
         "enabled": True,
@@ -351,7 +352,6 @@ else:
         "category": ["default", "tool", "less important"]
     },
 }
-
 
 defaultCommands.update(defaultPresetCommands)
 defaultCommands.update(lessImportantCommands)

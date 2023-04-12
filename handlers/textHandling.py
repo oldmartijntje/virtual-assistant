@@ -1,3 +1,4 @@
+import handlers.inputHandler as inputHandler
 def textController(text, settings = {}, chatEffect = True):
     from shared.logger import logger
     import shared.setup as setup
@@ -13,3 +14,6 @@ def textController(text, settings = {}, chatEffect = True):
         print(newText)
     else:
         print(text)
+    if chatEffect == True:
+        # inputHandler.givenInput("help -chatEffect False")
+        pass
