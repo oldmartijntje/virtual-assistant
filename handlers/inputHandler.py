@@ -50,11 +50,19 @@ def givenInput(input):
         else:
             function = defaultCommand[splittedCommand[0]]["function"]
         logger.debug(defaultFunctions.maxLength(f'func: {function}', 200))
-        try:
-            exec(function)
-        except Exception as e:
-            logger.error(f'Error: {e}')
-            textHandling.textController(f'Error: {e}', {}, False)
+        flaggedWords = list(settings["flaggedWords"]) + setup.flaggedCommands
+        flagged = False
+        for item in flaggedWords:
+            if item in function:
+                logger.error('Flagged word detected, command not executed')
+                textHandling.textController('Flagged word detected, command not executed', {}, False)
+                flagged = True
+        if flagged == False:
+            try:
+                exec(function)
+            except Exception as e:
+                logger.error(f'Error: {e}')
+                textHandling.textController(f'Error: {e}', {}, False)
 
     
 

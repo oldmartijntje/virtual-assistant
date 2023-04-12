@@ -20,7 +20,7 @@ Be carefull not to make a function to delete System32😉
     - programming preset
     - preset memory
     - autosave preset memory
-- critical windows file protection
+- critical windows file protection (basics work)
 - password for creating a new command
 - master password for overwriting default command
 

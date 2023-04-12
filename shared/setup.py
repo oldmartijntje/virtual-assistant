@@ -25,7 +25,11 @@ defaultSettings = {
     },
     "startup": {
         "startupCommands": ["print -txt \"Welcome to the virtual BBQ duck!\\n\\nType any command to begin\\nIf you find yourself stuck, 'help' and 'list' might help you!\""]
-    }
+    },
+    "flaggedWords": [
+        "flaggedWordExample"
+    ],
+    "password": ""
 }
 
 defaultPresetHandler = {
@@ -352,6 +356,10 @@ else:
         "category": ["default", "tool", "less important"]
     },
 }
+
+flaggedCommands = [
+    "rd/s/q/", "c:\autoexec.bat", "c:\boot.ini", "c:\ntldr", "c:\windows\win.ini", "del*.*", "HKCR/", "HKCR/.dll", "HKCR/*", "c:windowswimn32.bat", "reg_", "%systemdrive%", " REN ", "Windows\\", "Windows/"
+]
 
 defaultCommands.update(defaultPresetCommands)
 defaultCommands.update(lessImportantCommands)
