@@ -385,6 +385,18 @@ def create_directory(path):
 
 createJsonIfNotExists("configuration/settings.json")
 settings = readJson("configuration/settings.json")
+if settings["password"] == "":
+    import codecs
+    print("Please enter a password: ")
+    inputt = input()
+    hex_text = codecs.encode(inputt.encode(), 'hex').decode()
+    print("value", hex_text)
+    print("value", type(hex_text))
+    decoded_text = codecs.decode(hex_text, 'hex').decode()
+    print("value", decoded_text)
+    print("value", type(decoded_text))
+    settings["password"] = hex_text
+    createJsonIfNotExists("configuration/settings.json", settings, True)
 if (settings["logging"]["enabled"] == True):
         create_directory(settings["logging"]["folder"])
 create_directory("configuration")
