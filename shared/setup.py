@@ -14,9 +14,9 @@ defaultSettings = {
     },
     "logging": {
         "enabled": True,
-        "defaultLevel": "DEBUG",
-        "consoleLevel": "DEBUG",
-        "fileLevel": "DEBUG",
+        "defaultLevel": "INFO",
+        "consoleLevel": "WARNING",
+        "fileLevel": "INFO",
         "folder": "logs",
         "filename": "default.log",
         "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -24,7 +24,7 @@ defaultSettings = {
         "appName" : "virtualBBQduck"
     },
     "startup": {
-        "startupCommands": ["print -txt \"Welcome to the virtual BBQ duck!\n\nType any command to begin\nIf you find yourself stuck, 'help' and 'list' might help you!\""]
+        "startupCommands": ["print -txt \"Welcome to the virtual BBQ duck!\\n\\nType any command to begin\\nIf you find yourself stuck, 'help' and 'list' might help you!\""]
     }
 }
 
