@@ -1,12 +1,20 @@
 from shared.logger import logger
 import handlers.textHandling as textHandling
+
+defaultPresetData = {
+    "loop": 0,
+    "commands": {},
+    "settings": {},
+    "memory": {},
+}
+
 class Preset:
     """
     A brief description of what the class does.
     """
     import uuid
     
-    def __init__(self, nickname="user", presetName="default", presetID=uuid.uuid4(), presetData={}):
+    def __init__(self, nickname="user", presetName="default", presetID=uuid.uuid4(), presetData=defaultPresetData):
         self.nick = nickname
         self.presetName = presetName
         self.Id = presetID
@@ -78,6 +86,5 @@ def setName(name, chatEffect):
     return currentPreset.presetName
 
 def getCommands():
-    defaultCommand= {
-    }
-    return defaultCommand
+    commands = currentPreset.data["commands"]
+    return commands
