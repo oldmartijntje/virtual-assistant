@@ -31,11 +31,21 @@ def textController(text, settings = {}, chatEffect = True, feedback=True):
                         for item in list(presetData["effects"][effect]["replaceText"].keys()):
                             text = text.replace(item, presetData["effects"][effect]["replaceText"][item])
 
-        if (settings["textSettings"]["printFormat"]["enabled"] == True):
-            newText = settings["textSettings"]["printFormat"]["defaultFormatting"]["start"] + str(text) + settings["textSettings"]["printFormat"]["defaultFormatting"]["end"]
-            print(newText)
-        else:
-            print(text)
+                    for item in presetData["effects"][effect]["runTextInCommands"]:
+                        text = text.replace("\"", "\\\"")
+                        text = text.replace("\n", "\\n")
+                        text = text.replace("\'", "\\\'")
+                        inputHandler.givenInput(item.format(text))
+                    
+
+        
+
+        if (len(presetData["settings"]["activeEffects"]) > 0 and presetData["settings"]["activeEffects"][-1] in presetData["effects"] and presetData["effects"][presetData["settings"]["activeEffects"][-1]]["feedback"] == False) == False:
+            if (settings["textSettings"]["printFormat"]["enabled"] == True):
+                newText = settings["textSettings"]["printFormat"]["defaultFormatting"]["start"] + str(text) + settings["textSettings"]["printFormat"]["defaultFormatting"]["end"]
+                print(newText)
+            else:
+                print(text)
 
         if chatEffect == True:
             if "settings" in presetData and "activeEffects" in presetData["settings"]:

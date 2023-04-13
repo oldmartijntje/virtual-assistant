@@ -23,5 +23,6 @@ Be carefull not to make a function to delete System32😉
 - critical windows file protection (basics work)
 - password for creating a new command
 - master password for overwriting default command
-- "runTextInCommand": "print {}"
+- filtering from projectsviewer
+- global effects
 

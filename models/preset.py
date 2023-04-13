@@ -5,7 +5,7 @@ defaultPresetData = {
     "loop": 0,
     "commands": {},
     "settings": {
-        "activeEffects": [],
+        "activeEffects": ["testing"],
         "autoSave": False,
         "editWithoutPassword": True,
 
@@ -23,11 +23,14 @@ defaultPresetData = {
             },
             "replaceText": {
                 "1": "2",
+                "a": "-MEOW-",
             },
-            "runTextInCommand": "print {}"
+            "runTextInCommands": ["print \"meow - {}\""],
+            "feedback": False
         },
     }
 }
+# only the last effect in the list will be checked for "feedback": False
 
 class Preset:
     """
