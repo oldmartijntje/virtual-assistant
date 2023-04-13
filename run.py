@@ -1,5 +1,5 @@
 import shared.setup as setup
-import handlers.textHandling as textHandling
+import handlers.textHandler as textHandler
 import handlers.inputHandler as inputHandler
 from shared.logger import logger
 import model.preset as preset

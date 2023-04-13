@@ -38,6 +38,11 @@ defaultPresetHandler = {
     }
 }
 
+descriptions = {
+        "chatEffect" : "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops.",
+        "feedback" : "With this set to false, the command will not give feedback to the user.\nThis is useful for commands that are used to set up other commands, or if you just don't want to get feedback."   
+            }
+
 defaultCommands = {
     "exit": {
         "description": "Exits the program.",
@@ -51,14 +56,15 @@ defaultCommands = {
         "parameters": {
             "var1": {
                 "default": "Hello World!",
-                "given": "-txt"
+                "given": "-txt",
+                "description": "The text to print."
             }
         },
         "category": ["default"]
     },
     "help": {
         "description": "Displays help of any command, or itself if no command is given.\nUse '-params True' to display the parameters of the command.",
-        "function": "textHandling.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}), chatEffect = {})",
+        "function": "textHandler.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}), chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "help",
@@ -78,14 +84,19 @@ defaultCommands = {
             "var4": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var5": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "help"]
     },
     "list": {
         "description": "Lists all commands and/or categories.",
-        "function": "textHandling.textController(defaultCommands.listCommands(\"{}\", {}, {}), chatEffect = {})",
+        "function": "textHandler.textController(defaultCommands.listCommands(\"{}\", {}, {}), chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "",
@@ -105,7 +116,12 @@ defaultCommands = {
             "var4": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var5": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "help"]
@@ -180,7 +196,7 @@ defaultCommands = {
     },
     "readFile": {
         "description": "Reads a file.",
-        "function": "file = open(\"{}/{}\", \"r\");textHandling.textController(file.read(), chatEffect = {});file.close()",
+        "function": "file = open(\"{}/{}\", \"r\");textHandler.textController(file.read(), chatEffect = {}, feedback = {});file.close()",
         "parameters": {
             "var1": {
                 "default": "configuration",
@@ -195,7 +211,12 @@ defaultCommands = {
             "var3": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "file"]
@@ -224,7 +245,7 @@ defaultCommands = {
     },
     "cmdPrint" : { 
         "description": "Prints command from a command.",
-        "function": "command=\"{}\";textHandling.textController((defaultCommands.getCommandData(command) if defaultCommands.getCommandData(command) != False else \"Command not found\"), chatEffect = {})",
+        "function": "command=\"{}\";textHandler.textController((defaultCommands.getCommandData(command) if defaultCommands.getCommandData(command) != False else \"Command not found\"), chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "help",
@@ -234,14 +255,19 @@ defaultCommands = {
             "var2": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var3": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "coding", "debug"]
     },
     "loadDefaultCommands": {
         "description": "Loads the default commands.",
-        "function": "defaultCommands.loadDefaultCommands({}, {}, {})",
+        "function": "defaultCommands.loadDefaultCommands({}, {}, {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "False",
@@ -256,7 +282,12 @@ defaultCommands = {
             "var3": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "debug"]
@@ -266,7 +297,7 @@ defaultCommands = {
 failsafeCommands = {
     "loadDefaultCommands": {
         "description": "Loads the default commands.",
-        "function": "defaultCommands.loadDefaultCommands({}, {}, {})",
+        "function": "defaultCommands.loadDefaultCommands({}, {}, {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "False",
@@ -281,19 +312,29 @@ failsafeCommands = {
             "var3": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "debug", "failsafe"]
     },
     "help" : {
         "description": "Prints the help menu.",
-        "function": "textHandling.textController(\"The original \\\"help\\\" command is deleted somehow, run 'loadDefaultCommands -force True -overwrite True' to reset the default commands.\", chatEffect = {})",
+        "function": "textHandler.textController(\"The original \\\"help\\\" command is deleted somehow, run 'loadDefaultCommands -force True -overwrite True' to reset the default commands.\", chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var2": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "help", "failsafe"]
@@ -303,15 +344,15 @@ failsafeCommands = {
 defaultPresetCommands = {
     "preset" : {
         "description": "Set name of preset, or more with parameters.",
-        "function": """name = \"{}\";save = {};load = \"{}\";chatEffect1 = {};
+        "function": """name = \"{}\";save = {};load = \"{}\";chatEffect1 = {}; feedback = {}
 if name == \"\" and save == False and load == \"\": 
-    textHandling.textController(\"Preset Loaded: \" + str(preset.getPreset()), chatEffect = chatEffect1);); 
+    textHandler.textController(\"Preset Loaded: \" + str(preset.getPreset()), chatEffect = chatEffect1, feedback = feedback);); 
 if name != \"\": 
-    preset.setName(name, chatEffect = chatEffect1); 
+    preset.setName(name, chatEffect = chatEffect1, feedback = feedback); 
 if save == True: 
-    preset.savePreset(chatEffect = chatEffect1); 
+    preset.savePreset(chatEffect = chatEffect1, feedback = feedback); 
 if load != \"\": 
-    preset.loadPreset(load, chatEffect = chatEffect1)""",
+    preset.loadPreset(load, chatEffect = chatEffect1, feedback = feedback)""",
         "parameters": {
             "var1": {
                 "default": "",
@@ -331,7 +372,12 @@ if load != \"\":
             "var4": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": "If there is an chat effect applied, setting this to False will block the chat effect from applying.\nIf you have a chat effect that runs a command, disable this on the effect to avoid feedback loops."
+                "description": descriptions["chatEffect"]
+            },
+            "var5": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"]
             }
         },
         "category": ["default", "preset"]
@@ -355,6 +401,53 @@ else:
         },
         "category": ["default", "tool", "less important"]
     },
+    "playSound" : {
+        "description": "Play a sound.",
+        "function": """sound = \"{}\";path = \"{}\";ignore = {};
+if ignore == True:
+    try:
+        from playsound import playsound;playsound(path + sound);
+    except:
+        pass;
+else:
+    from playsound import playsound;playsound(path + sound);""",
+        "parameters" : {
+            "var1": {
+                "default": "test.mp3",
+                "given": "-sound",
+                "description": "The sound file."
+            },
+            "var2": {
+                "default": "configuration/",
+                "given": "-path",
+                "description": "The path to the sound file."
+            },
+            "var3": {
+                "default": "False",
+                "given": "-ignoreError",
+                "description": "If True, the error will be ignored."
+            }
+        },
+        "category": ["default", "less important", "effect"]
+    },
+    "wait" : {
+        "description": "Wait for a certain amount of seconds.",
+        "function": "seconds = {};import time;time.sleep(seconds);",
+        "parameters" : {
+            "var1": {
+                "default": "1",
+                "given": "-seconds",
+                "description": "The amount of seconds to wait."
+            }
+        },
+        "category": ["default", "effect", "less important"]
+    },
+    "clearConsole" : {
+        "description": "Clears the console.",
+        "function": "import os;os.system('cls');",
+        "parameters" : {},
+        "category": ["default", "tool", "effect", "less important"]
+    },
 }
 
 flaggedCommands = [
@@ -374,9 +467,12 @@ def createJsonIfNotExists(path, data = defaultSettings, overwrite = False):
         return False
     
 def readJson(path):
-    import json
-    with open(path, "r") as f:
-        return json.load(f)
+    import json, os
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            return json.load(f)
+    else:
+        return False
     
 def create_directory(path):
     import os
@@ -401,5 +497,6 @@ if (settings["logging"]["enabled"] == True):
         create_directory(settings["logging"]["folder"])
 create_directory("configuration")
 create_directory("configuration/presetData")
+create_directory("data")
 createJsonIfNotExists("configuration/presetData/presetHandler.json", defaultPresetHandler)
 createJsonIfNotExists("configuration/defaultCommands.json", defaultCommands)

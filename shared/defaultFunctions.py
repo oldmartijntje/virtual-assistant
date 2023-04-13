@@ -18,6 +18,9 @@ def getCommandsDict():
     import shared.setup as setup
     commands = {}
     defaultCommand = setup.readJson("configuration/defaultCommands.json")
+    if defaultCommand == False:
+        setup.createJsonIfNotExists("configuration/defaultCommands.json", {})
+        defaultCommand = setup.defaultCommands
     commands.update(setup.failsafeCommands)
     commands.update(defaultCommand)
     commands.update(preset.getCommands())
@@ -41,3 +44,4 @@ def dictToList(dictionary, order):
                 returnListInOrder.append(dictionary[key])
                 logger.debug(f'order: {returnListInOrder}')
     return returnListInOrder
+

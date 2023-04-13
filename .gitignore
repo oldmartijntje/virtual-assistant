@@ -39,6 +39,8 @@ defaultData.json
 defaultFunctions.json
 defaultCommands.json
 configuration/presetData
+data/
+virtualAssistantEnv/
 
 # Installer logs
 pip-log.txt

@@ -1,7 +1,7 @@
 from shared.logger import logger
 import shared.defaultFunctions as defaultFunctions
 import model.preset as preset
-import handlers.textHandling as textHandling
+import handlers.textHandler as textHandler
 
 def getInfoFromCommand(command, parameters = False, categories = False):
     logger.debug(f'getInfoFromCommand called: {command}, {parameters}, {categories}')
@@ -63,7 +63,7 @@ def getCommandData(command):
     else:
         return False
     
-def loadDefaultCommands(force, overwrite, chatEffect1):
+def loadDefaultCommands(force, overwrite, chatEffect1, feedback = True):
     import shared.setup as setup
     logger.debug(f'command called: {force}, {overwrite}')
     if (overwrite == True):
@@ -71,7 +71,7 @@ def loadDefaultCommands(force, overwrite, chatEffect1):
     else:
         text = "Are you sure you want to reload the current default commands? (y/n)"
     if (force != True):
-        textHandling.textController(text, chatEffect=chatEffect1)
+        textHandler.textController(text, chatEffect=chatEffect1, feedback=feedback)
         confirm = input()
         if overwrite == True:
             logger.warning(f'overwritten defaultCommands.json with hardcoded default commands')

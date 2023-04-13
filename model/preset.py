@@ -1,11 +1,29 @@
 from shared.logger import logger
-import handlers.textHandling as textHandling
+import handlers.textHandler as textHandler
 
 defaultPresetData = {
     "loop": 0,
     "commands": {},
-    "settings": {},
+    "settings": {
+        "activeEffects": ["henk"],
+    },
     "memory": {},
+    "effects": {
+        "henk": {
+            "commands": {
+                "beforeText": ["print beforeText", "print beforeText2"],
+                "afterText": ["print afterText", "print afterText2"],
+            },
+            "text": {
+                "beforeText": "beforeText",
+                "afterText": "afterText",
+            },
+            "replaceText": {
+                "1": "2",
+                "a": "b",
+            },
+        },
+    }
 }
 
 class Preset:
@@ -72,19 +90,29 @@ def getPreset():
     logger.debug(f'getPreset called, returning: {currentPreset.presetName}')
     return currentPreset.presetName
 
-def savePreset(chatEffect):
-    textHandling.textController(f"Preset save placeholder", chatEffect=chatEffect)
+def savePreset(chatEffect, feedback=True):
+    textHandler.textController(f"Preset save placeholder", chatEffect=chatEffect, feedback=feedback)
 
-def loadPreset(presetName, chatEffect):
-    textHandling.textController(f"Preset load placeholder", chatEffect=chatEffect)
+def loadPreset(presetName, chatEffect, feedback=True):
+    textHandler.textController(f"Preset load placeholder", chatEffect=chatEffect, feedback=feedback)
 
-def setName(name, chatEffect):
+def setName(name, chatEffect, feedback=True):
     global currentPreset
     currentPreset.presetName = name
     logger.info(f'Preset name set to: {currentPreset.presetName}')
-    textHandling.textController(f"Preset name set to: {currentPreset.presetName}", chatEffect=chatEffect)
+    textHandler.textController(f"Preset name set to: {currentPreset.presetName}", chatEffect=chatEffect, feedback=feedback)
     return currentPreset.presetName
 
 def getCommands():
+    logger.debug(f'getCommands called, returning: {currentPreset.data["commands"]}')
     commands = currentPreset.data["commands"]
     return commands
+
+def getPresetData():
+    logger.debug(f'getPresetData called')
+    return currentPreset.data
+
+def setPresetData(data):
+    currentPreset.data = data
+    logger.debug(f'setPresetData called')
+    return True

@@ -3,7 +3,7 @@ import shared.defaultFunctions as defaultFunctions
 import shared.defaultCommands as defaultCommands
 import model.preset as preset
 import shared.setup as setup
-import handlers.textHandling as textHandling
+import handlers.textHandler as textHandler
 
 
 
@@ -14,7 +14,7 @@ def givenInput(input):
     settings = setup.readJson("configuration/settings.json")
     if preset.currentPreset.data["loop"] > settings["textSettings"]["maximumRecursion"]:	
         logger.error('Recursion limit reached')	
-        textHandling.textController('Recursion limit reached', {}, False)	
+        textHandler.textController('Recursion limit reached', {}, False)	
         return False
     logger.debug(f'givenInput called: {input}')
     splittedCommand = defaultFunctions.stripQuotesFromArray(defaultFunctions.splitForCommand(input))
@@ -53,16 +53,16 @@ def givenInput(input):
         flaggedWords = list(settings["flaggedWords"]) + setup.flaggedCommands
         flagged = False
         for item in flaggedWords:
-            if item in function:
+            if item.lower() in function.lower():
                 logger.error('Flagged word detected, command not executed')
-                textHandling.textController('Flagged word detected, command not executed', {}, False)
+                textHandler.textController('Flagged word detected, command not executed', {}, False)
                 flagged = True
         if flagged == False:
             try:
                 exec(function)
             except Exception as e:
                 logger.error(f'Error: {e}')
-                textHandling.textController(f'Error: {e}', {}, False)
+                textHandler.textController(f'Error: {e}', {}, False)
 
     
 
