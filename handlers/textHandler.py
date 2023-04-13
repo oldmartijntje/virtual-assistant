@@ -2,7 +2,7 @@ import handlers.inputHandler as inputHandler
 def textController(text, settings = {}, chatEffect = True, feedback=True):
     from shared.logger import logger
     import setup as setup
-    import model.preset as preset
+    import models.preset as preset
     logger.debug('textController called')
     if (settings == {}):
         try:

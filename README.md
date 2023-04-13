@@ -9,7 +9,7 @@ Be carefull not to make a function to delete System32😉
 ## my todo list:
 - help give default values of paramaters
 - list a list of all categories
-- test it with normal text that is no command
+- test it with normal text that is no command, and empty input
 - import command packs
 - update default commands using Update command
 - add param to loadDefaultCommands to auto import imported commands
