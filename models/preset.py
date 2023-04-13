@@ -24,6 +24,7 @@ defaultPresetData = {
             "replaceText": {
                 "1": "2",
             },
+            "runTextInCommand": "print {}"
         },
     }
 }
