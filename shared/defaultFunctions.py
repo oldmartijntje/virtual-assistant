@@ -13,7 +13,7 @@ def stripQuotesFromArray(split_command):
     return split_command
 
 def getCommandsDict():
-    import model.preset as preset
+    import models.preset as preset
     import setup as setup
     commands = {}
     defaultCommand = setup.readJson("configuration/defaultCommands.json")
@@ -48,3 +48,14 @@ def encodeToHex(text):
     import codecs
     return codecs.encode(text.encode(), 'hex').decode()
 
+def createCommand(name, function, parameters = []):
+    import setup as setup
+    import models.preset as preset
+    defaultCommand = setup.readJson("configuration/defaultCommands.json")
+    if defaultCommand == False:
+        setup.createJsonIfNotExists("configuration/defaultCommands.json", {})
+        defaultCommand = setup.defaultCommands
+    defaultCommand[name] = {"function": function, "parameters": parameters}
+    setup.writeJson("configuration/defaultCommands.json", defaultCommand)
+    preset.currentPreset.data["commands"] = defaultCommand
+    preset.savePreset()

@@ -2,7 +2,7 @@ import setup as setup
 import handlers.textHandler as textHandler
 import handlers.inputHandler as inputHandler
 from shared.logger import logger
-import model.preset as preset
+import models.preset as preset
 preset.currentPreset.data["loop"] = 0
 logger.debug('logger inported')
 logger.info('Startup complete')

@@ -1,6 +1,6 @@
 from shared.logger import logger
 import shared.defaultFunctions as defaultFunctions
-import model.preset as preset
+import models.preset as preset
 import handlers.textHandler as textHandler
 
 def getInfoFromCommand(command, parameters = False, categories = False):
