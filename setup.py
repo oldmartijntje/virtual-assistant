@@ -9,10 +9,11 @@ defaultPresetHandler = {
     }
 }
 
+descriptions = commands.descriptions
+
 defaultCommands = commands.defaultCommands
 defaultPresetCommands = commands.defaultPresetCommands
 lessImportantCommands = commands.lessImportantCommands
-descriptions = commands.descriptions
 failsafeCommands = commands.failsafeCommands
 
 flaggedCommands = [

@@ -44,7 +44,8 @@ else:
             "var3": {
                 "default": "False",
                 "given": "-ignoreError",
-                "description": "If True, the error will be ignored."
+                "description": "If True, the error will be ignored.",
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "less important", "effect"]
@@ -90,7 +91,8 @@ if load != \"\":
             "var2": {
                 "default": "False",
                 "given": "-save",
-                "description": "Save the current preset."
+                "description": "Save the current preset.",
+                "options": ["True", "False"]
             },
             "var3": {
                 "default": "",
@@ -100,12 +102,14 @@ if load != \"\":
             "var4": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var5": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "preset"]
@@ -143,22 +147,26 @@ defaultCommands = {
             "var2": {
                 "default": "False",
                 "given": "-params",
-                "description": "Give the parameters of the command."
+                "description": "Give the parameters of the command.",
+                "options": ["True", "False"]
             },
             "var3": {
                 "default": "False",
                 "given": "-category",
-                "description": "Show the category of the command."
+                "description": "Show the category of the command.",
+                "options": ["True", "False"]
             },
             "var4": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var5": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "help"]
@@ -180,17 +188,20 @@ defaultCommands = {
             "var3": {
                 "default": "False",
                 "given": "-lCategories",
-                "description": "List all categories."
+                "description": "List all categories.",
+                "options": ["True", "False"]
             },
             "var4": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var5": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "help"]
@@ -280,12 +291,14 @@ defaultCommands = {
             "var3": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var4": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "file"]
@@ -324,12 +337,14 @@ defaultCommands = {
             "var2": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var3": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "coding", "debug"]
@@ -341,22 +356,26 @@ defaultCommands = {
             "var1": {
                 "default": "False",
                 "given": "-force",
-                "description": "Force the default commands to load, this means no confirmation will be asked."
+                "description": "Force the default commands to load, this means no confirmation will be asked.",
+                "options": ["True", "False"]
             },
             "var2": {
                 "default": "False",
                 "given": "-overwrite",
-                "description": "If True, the default commands will overwrite the current commands in DefaultData.json and then load them.\nThis is a reset command, it will reset the default commands to the default commands hardcoded."
+                "description": "If True, the default commands will overwrite the current commands in DefaultData.json and then load them.\nThis is a reset command, it will reset the default commands to the default commands hardcoded.",
+                "options": ["True", "False"]
             },
             "var3": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var4": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "debug"]
@@ -371,22 +390,26 @@ failsafeCommands = {
             "var1": {
                 "default": "False",
                 "given": "-force",
-                "description": "Force the default commands to load, this means no confirmation will be asked."
+                "description": "Force the default commands to load, this means no confirmation will be asked.",
+                "options": ["True", "False"]
             },
             "var2": {
                 "default": "False",
                 "given": "-overwrite",
-                "description": "If True, the default commands will overwrite the current commands in DefaultData.json and then load them.\nThis is a reset command, it will reset the default commands to the default commands hardcoded."
+                "description": "If True, the default commands will overwrite the current commands in DefaultData.json and then load them.\nThis is a reset command, it will reset the default commands to the default commands hardcoded.",
+                "options": ["True", "False"]
             },
             "var3": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var4": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "debug", "failsafe"]
@@ -398,12 +421,14 @@ failsafeCommands = {
             "var1": {
                 "default": "True",
                 "given": "-chatEffect",
-                "description": descriptions["chatEffect"]
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
             },
             "var2": {
                 "default": "True",
                 "given": "-feedback",
-                "description": descriptions["feedback"]
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "help", "failsafe"]
