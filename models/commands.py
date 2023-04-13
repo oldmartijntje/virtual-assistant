@@ -68,6 +68,37 @@ else:
         "parameters" : {},
         "category": ["default", "tool", "effect", "less important"]
     },
+    "getMetaData": {
+        "description": "Get the metadata of anything.",
+        "function": "textHandler.textController(defaultCommands.formatMetaData(\"{}\", \"{}\"), chatEffect = {}, feedback = {})",
+        "parameters": {
+            "var1": {
+                "default": "help",
+                "given": "-name",
+                "description": "The variable to get the metadata of.",
+                "options": ["help", "list"]
+            },
+            "var2" : {
+                "default": "command",
+                "given": "-type",
+                "description": "The type of thing you want metadata of.",
+                "options": ["command", "preset", "library", "program"]
+            },
+            "var3": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["default", "tool", "less important"]
+    },
 }
 
 defaultPresetCommands = {
@@ -145,7 +176,7 @@ defaultCommands = {
                 "description": "The command to display help for."
             },
             "var2": {
-                "default": "False",
+                "default": "True",
                 "given": "-params",
                 "description": "Give the parameters of the command.",
                 "options": ["True", "False"]
@@ -179,7 +210,7 @@ defaultCommands = {
     },
     "list": {
         "description": "Lists all commands and/or categories.",
-        "function": "textHandler.textController(defaultCommands.listCommands(\"{}\", {}, {}), chatEffect = {}, feedback = {})",
+        "function": "textHandler.textController(defaultCommands.listCommands(\"{}\", {}), chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "",
@@ -192,18 +223,31 @@ defaultCommands = {
                 "description": "the amount of characters to display per item."
             },
             "var3": {
-                "default": "False",
-                "given": "-lCategories",
-                "description": "List all categories.",
-                "options": ["True", "False"]
-            },
-            "var4": {
                 "default": "True",
                 "given": "-chatEffect",
                 "description": descriptions["chatEffect"],
                 "options": ["True", "False"]
             },
-            "var5": {
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["default", "help"]
+    },
+    "listCategories": {
+        "description": "Lists all categories.",
+        "function": "textHandler.textController(defaultCommands.listCategories(), chatEffect = {}, feedback = {})",
+        "parameters": {
+            "var1": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var2": {
                 "default": "True",
                 "given": "-feedback",
                 "description": descriptions["feedback"],

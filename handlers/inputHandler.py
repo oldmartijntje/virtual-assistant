@@ -5,9 +5,6 @@ import models.preset as preset
 import setup as setup
 import handlers.textHandler as textHandler
 
-
-
-
 def givenInput(input):
     logger.debug(f'loop: {preset.currentPreset.data["loop"]}')
     preset.currentPreset.data["loop"] +=1
@@ -19,7 +16,7 @@ def givenInput(input):
     logger.debug(f'givenInput called: {input}')
     splittedCommand = defaultFunctions.stripQuotesFromArray(defaultFunctions.splitForCommand(input))
     defaultCommand = defaultFunctions.getCommandsDict()
-    if (splittedCommand[0] in defaultCommand):
+    if (len(splittedCommand) > 0 and splittedCommand[0] in defaultCommand):
         parameters = {}
         emptyParams = []
         if "parameters" in defaultCommand[splittedCommand[0]]:

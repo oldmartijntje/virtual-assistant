@@ -5,7 +5,7 @@ defaultPresetData = {
     "loop": 0,
     "commands": {},
     "settings": {
-        "activeEffects": ["testing"],
+        "activeEffects": [],
         "autoSave": False,
         "editWithoutPassword": True,
 
@@ -26,9 +26,15 @@ defaultPresetData = {
                 "a": "-MEOW-",
             },
             "runTextInCommands": ["print \"meow - {}\""],
-            "feedback": False
+            "feedback": True
         },
-    }
+    },
+    "metaData": {
+        "name": "Default",
+        "author": "OldMartijntje",
+        "version": "1.0.0",
+        "description": "Default preset."
+    },
 }
 # only the last effect in the list will be checked for "feedback": False
 
@@ -38,7 +44,7 @@ class Preset:
     """
     import uuid
     
-    def __init__(self, nickname="user", presetName="default", presetID=uuid.uuid4(), presetData=defaultPresetData):
+    def __init__(self, nickname="user", presetName="Default", presetID=uuid.uuid4(), presetData=defaultPresetData):
         self.nick = nickname
         self.presetName = presetName
         self.Id = presetID

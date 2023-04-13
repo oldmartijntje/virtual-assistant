@@ -32,10 +32,11 @@ def textController(text, settings = {}, chatEffect = True, feedback=True):
                             text = text.replace(item, presetData["effects"][effect]["replaceText"][item])
 
                     for item in presetData["effects"][effect]["runTextInCommands"]:
-                        text = text.replace("\"", "\\\"")
-                        text = text.replace("\n", "\\n")
-                        text = text.replace("\'", "\\\'")
-                        inputHandler.givenInput(item.format(text))
+                        newText = text
+                        newText = newText.replace("\"", "\\\"")
+                        newText = newText.replace("\n", "\\n")
+                        newText = newText.replace("\'", "\\\'")
+                        inputHandler.givenInput(item.format(newText))
                     
 
         

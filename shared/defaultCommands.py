@@ -2,6 +2,8 @@ from shared.logger import logger
 import shared.defaultFunctions as defaultFunctions
 import models.preset as preset
 import handlers.textHandler as textHandler
+import handlers.importHandler as importHandler
+import shared.appData as appData
 
 def getInfoFromCommand(command, parameters = False, categories = False, defaultParameters = False):
     logger.debug(f'getInfoFromCommand called: {command}, {parameters}, {categories}')
@@ -27,9 +29,9 @@ def getInfoFromCommand(command, parameters = False, categories = False, defaultP
             returnText += f'The parameters of the \"{command}\" command are:\n\n'
             for key in list(data.keys()):
                 if ("description" in data[key] and data[key]["description"] != ""):
-                    returnText += f'{data[key]["given"]}: {data[key]["description"]}\n'
+                    returnText += f'    {data[key]["given"]}: {data[key]["description"]}\n'
                 else:
-                    returnText += f'{data[key]["given"]}: No description\n'
+                    returnText += f'    {data[key]["given"]}: No description\n'
                 if defaultParameters:
                     returnText += f'    Default value: {data[key]["default"]}\n'
                     if "options" in data[key] and len(data[key]["options"]) > 0:
@@ -48,7 +50,7 @@ def getInfoFromCommand(command, parameters = False, categories = False, defaultP
             returnText = returnText[:-2]
     return returnText
     
-def listCommands(filerCategory = '', maxCharacters: int = 40, listCategories: bool = False):
+def listCommands(filerCategory = '', maxCharacters: int = 40):
     logger.debug(f'listCommands called')
     if (filerCategory != ''):
         returnText = f'The commands with the filter "{filerCategory}" are:\n'
@@ -57,12 +59,24 @@ def listCommands(filerCategory = '', maxCharacters: int = 40, listCategories: bo
     for key in list(defaultFunctions.getCommandsDict().keys()):
         if (filerCategory == '' or filerCategory in defaultFunctions.getCommandsDict()[key]["category"]):
             if "description" in defaultFunctions.getCommandsDict()[key]:
-                returnText += f'{key}: {defaultFunctions.maxLength(defaultFunctions.getCommandsDict()[key]["description"], maxCharacters)}\n'
+                returnText += f'    {key}: {defaultFunctions.maxLength(defaultFunctions.getCommandsDict()[key]["description"], maxCharacters)}\n'
             else:
-                returnText += f'{key}: No description\n'
+                returnText += f'    {key}: No description\n'
     if (returnText == 'The commands are:\n'):
         returnText = f'No commands found with filter "{filerCategory}"'
     return returnText   
+
+def listCategories():
+    logger.debug(f'listCategories called')
+    returnText = 'The categories are:\n'
+    for key in list(defaultFunctions.getCommandsDict().keys()):
+        if "category" in defaultFunctions.getCommandsDict()[key]:
+            for item in defaultFunctions.getCommandsDict()[key]["category"]:
+                if item not in returnText:
+                    returnText += f'    {item}\n'
+    if (returnText == 'The categories are:\n'):
+        returnText = 'No categories found'
+    return returnText
 
 def getCommandData(command):
     logger.debug(f'getCommandData called: {command}')
@@ -89,3 +103,29 @@ def loadDefaultCommands(force, overwrite, chatEffect1, feedback = True):
         if overwrite == True:
             logger.warning(f'overwritten defaultCommands.json with hardcoded default commands')
         return setup.createJsonIfNotExists("configuration/defaultCommands.json", setup.defaultCommands, overwrite)
+    
+def formatMetaData(name, type):
+    getMetaData(name, type)
+
+def getMetaData(name, type):
+    match type:
+        case "command":
+            if (name in defaultFunctions.getCommandsDict()):
+                data = defaultFunctions.getCommandsDict()[name]
+        case "preset":
+            if (name in preset.handler.getPresets()):
+                data = preset.handler.loadPreset(name)
+        case "library":
+            if (name in importHandler.getLibraries()):
+                data = importHandler.getLibraryData(name)
+        case "program":
+            return appData.metaData
+        case _:
+            # get dialog: "unknown type" "not found" which it gets with a normal False
+            return [1]
+    if "metaData" in data:
+        return data["metaData"]
+    else:
+        # get dialog: "this has no metaData" instead of "not found" which it gets with a normal False
+        return [0]
+    
