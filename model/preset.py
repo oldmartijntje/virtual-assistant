@@ -5,11 +5,14 @@ defaultPresetData = {
     "loop": 0,
     "commands": {},
     "settings": {
-        "activeEffects": ["henk"],
+        "activeEffects": [],
+        "autoSave": False,
+        "editWithoutPassword": True,
+
     },
     "memory": {},
     "effects": {
-        "henk": {
+        "testing": {
             "commands": {
                 "beforeText": ["print beforeText", "print beforeText2"],
                 "afterText": ["print afterText", "print afterText2"],
@@ -20,7 +23,6 @@ defaultPresetData = {
             },
             "replaceText": {
                 "1": "2",
-                "a": "b",
             },
         },
     }

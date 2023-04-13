@@ -1,6 +1,6 @@
 # app_logger.py
 import logging
-import shared.setup as setup
+import setup as setup
 import datetime
 settings = setup.readJson("configuration/settings.json")
 

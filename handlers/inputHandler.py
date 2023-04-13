@@ -2,7 +2,7 @@ from shared.logger import logger
 import shared.defaultFunctions as defaultFunctions
 import shared.defaultCommands as defaultCommands
 import model.preset as preset
-import shared.setup as setup
+import setup as setup
 import handlers.textHandler as textHandler
 
 

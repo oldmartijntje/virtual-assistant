@@ -64,7 +64,7 @@ def getCommandData(command):
         return False
     
 def loadDefaultCommands(force, overwrite, chatEffect1, feedback = True):
-    import shared.setup as setup
+    import setup as setup
     logger.debug(f'command called: {force}, {overwrite}')
     if (overwrite == True):
         text = "Are you sure you want to overwrite the current default commands? (y/n)"

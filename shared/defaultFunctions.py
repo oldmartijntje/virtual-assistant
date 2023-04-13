@@ -14,8 +14,7 @@ def stripQuotesFromArray(split_command):
 
 def getCommandsDict():
     import model.preset as preset
-    import shared.defaultFunctions as defaultFunctions
-    import shared.setup as setup
+    import setup as setup
     commands = {}
     defaultCommand = setup.readJson("configuration/defaultCommands.json")
     if defaultCommand == False:
@@ -44,4 +43,8 @@ def dictToList(dictionary, order):
                 returnListInOrder.append(dictionary[key])
                 logger.debug(f'order: {returnListInOrder}')
     return returnListInOrder
+
+def encodeToHex(text):
+    import codecs
+    return codecs.encode(text.encode(), 'hex').decode()
 
