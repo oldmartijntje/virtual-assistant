@@ -137,7 +137,7 @@ defaultCommands = {
     },
     "help": {
         "description": "Displays help of any command, or itself if no command is given.\nUse '-params True' to display the parameters of the command.",
-        "function": "textHandler.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}), chatEffect = {}, feedback = {})",
+        "function": "textHandler.textController(defaultCommands.getInfoFromCommand(\"{}\", {}, {}, {}), chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "help",
@@ -154,6 +154,12 @@ defaultCommands = {
                 "default": "False",
                 "given": "-category",
                 "description": "Show the category of the command.",
+                "options": ["True", "False"]
+            },
+            "var3.1": {
+                "default": "False",
+                "given": "-defaultParams",
+                "description": "Show the default parameters per parameter.",
                 "options": ["True", "False"]
             },
             "var4": {

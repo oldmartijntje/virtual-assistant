@@ -3,7 +3,7 @@ import shared.defaultFunctions as defaultFunctions
 import models.preset as preset
 import handlers.textHandler as textHandler
 
-def getInfoFromCommand(command, parameters = False, categories = False):
+def getInfoFromCommand(command, parameters = False, categories = False, defaultParameters = False):
     logger.debug(f'getInfoFromCommand called: {command}, {parameters}, {categories}')
     description = ""
     data = {}
@@ -24,12 +24,20 @@ def getInfoFromCommand(command, parameters = False, categories = False):
         if len(data) == 0:
             returnText += f'The \"{command}\" command has no parameters\n'
         else:
-            returnText += f'The parameters of the \"{command}\" command are:\n'
+            returnText += f'The parameters of the \"{command}\" command are:\n\n'
             for key in list(data.keys()):
                 if ("description" in data[key] and data[key]["description"] != ""):
                     returnText += f'{data[key]["given"]}: {data[key]["description"]}\n'
                 else:
                     returnText += f'{data[key]["given"]}: No description\n'
+                if defaultParameters:
+                    returnText += f'    Default value: {data[key]["default"]}\n'
+                    if "options" in data[key] and len(data[key]["options"]) > 0:
+                        returnText += f'    Other default options:\n'
+                        for item in data[key]["options"]:
+                            if item != data[key]["default"]:
+                                returnText += f'        {item}\n'
+                        
     if (categories):
         if len(category) == 0:
             returnText += f'The \"{command}\" command has no categories\n'

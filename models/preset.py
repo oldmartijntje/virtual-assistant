@@ -106,7 +106,7 @@ def setName(name, chatEffect, feedback=True):
     return currentPreset.presetName
 
 def getCommands():
-    logger.debug(f'getCommands called, returning: {currentPreset.data["commands"]}')
+    logger.debug(f'getCommands called of preset: {currentPreset.presetName}')
     commands = currentPreset.data["commands"]
     return commands
 
