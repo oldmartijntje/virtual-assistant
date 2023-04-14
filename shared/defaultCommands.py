@@ -104,17 +104,29 @@ def loadDefaultCommands(force, overwrite, chatEffect1, feedback = True):
             logger.warning(f'overwritten defaultCommands.json with hardcoded default commands')
         return setup.createJsonIfNotExists("configuration/defaultCommands.json", setup.defaultCommands, overwrite)
     
-def formatMetaData(name, type):
-    getMetaData(name, type)
+def formatMetaData(metaData = False):
+    if metaData == False:
+        return "There was no metaData found"
+    elif metaData == [0]:
+        return "Unknown type"
+    else:
+        value = "MetaData:\n"
+        for key in list(metaData.keys()):
+            if metaData[key] != "":
+                value += "    " + key + ": " + metaData[key] + "\n"
+        if value == "MetaData:\n":
+            value = "There was no metaData found"
+        return value
 
-def getMetaData(name, type):
-    match type:
+def getMetaData(name, typeOfData):
+    data = False
+    match typeOfData:
         case "command":
             if (name in defaultFunctions.getCommandsDict()):
                 data = defaultFunctions.getCommandsDict()[name]
         case "preset":
             if (name in preset.handler.getPresets()):
-                data = preset.handler.loadPreset(name)
+                data = preset.handler.getPresetData(name)
         case "library":
             if (name in importHandler.getLibraries()):
                 data = importHandler.getLibraryData(name)
@@ -122,10 +134,10 @@ def getMetaData(name, type):
             return appData.metaData
         case _:
             # get dialog: "unknown type" "not found" which it gets with a normal False
-            return [1]
-    if "metaData" in data:
+            return [0]
+    logger.debug(f'getMetaData called: {name}, {typeOfData}, data: {data}')
+    if type(data) == type({}) and "metaData" in data:
         return data["metaData"]
     else:
-        # get dialog: "this has no metaData" instead of "not found" which it gets with a normal False
-        return [0]
+        return False
     

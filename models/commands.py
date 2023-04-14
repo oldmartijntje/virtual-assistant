@@ -70,7 +70,7 @@ else:
     },
     "getMetaData": {
         "description": "Get the metadata of anything.",
-        "function": "textHandler.textController(defaultCommands.formatMetaData(\"{}\", \"{}\"), chatEffect = {}, feedback = {})",
+        "function": "textHandler.textController(defaultCommands.formatMetaData(defaultCommands.getMetaData(\"{}\", \"{}\")), chatEffect = {}, feedback = {})",
         "parameters": {
             "var1": {
                 "default": "help",
@@ -152,7 +152,13 @@ defaultCommands = {
         "description": "Exits the program.",
         "function": "exit()",
         "parameters": {},
-        "category": ["default"]
+        "category": ["default"],
+        "metaData": {
+            "name" : "Exit command",
+            "description" : "The built in exit command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
     },
     "print": {
         "description": "Prints the given text.",
@@ -206,7 +212,13 @@ defaultCommands = {
                 "options": ["True", "False"]
             }
         },
-        "category": ["default", "help"]
+        "category": ["default", "help"],
+        "metaData": {
+            "name" : "Help command",
+            "description" : "The built in help command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
     },
     "list": {
         "description": "Lists all commands and/or categories.",
@@ -235,7 +247,13 @@ defaultCommands = {
                 "options": ["True", "False"]
             }
         },
-        "category": ["default", "help"]
+        "category": ["default", "help"],
+        "metaData": {
+            "name" : "list command",
+            "description" : "The built in list command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
     },
     "listCategories": {
         "description": "Lists all categories.",
@@ -428,7 +446,13 @@ defaultCommands = {
                 "options": ["True", "False"]
             }
         },
-        "category": ["default", "debug"]
+        "category": ["default", "debug"],
+        "metaData": {
+            "name" : "LoadDefaultCommands command",
+            "description" : "The built in LoadDefaultCommands command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
     },
 }
 
@@ -462,7 +486,13 @@ failsafeCommands = {
                 "options": ["True", "False"]
             }
         },
-        "category": ["default", "debug", "failsafe"]
+        "category": ["default", "debug", "failsafe"],
+        "metaData": {
+            "name" : "LoadDefaultCommands command",
+            "description" : "The built in Failsafe LoadDefaultCommands command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
     },
     "help" : {
         "description": "Prints the help menu.",
@@ -481,6 +511,12 @@ failsafeCommands = {
                 "options": ["True", "False"]
             }
         },
-        "category": ["default", "help", "failsafe"]
+        "category": ["default", "help", "failsafe"],
+        "metaData": {
+            "name" : "Help command",
+            "description" : "The built in Failsafe help command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
     }
 }
