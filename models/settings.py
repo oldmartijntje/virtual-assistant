@@ -31,8 +31,18 @@ defaultSettings = {
             "playSound"
             ]
     },
+    "exit": {
+        "exitCommands": [
+            "print -txt Goodbye!"
+        ],
+        "presetsCanHaveCustomExitCommands": False
+    },
     "flaggedWords": [
         "flaggedWordExample"
     ],
-    "password": ""
+    "password": "",
+    "preferences": {
+        "username": "",
+        "anonymous": False,
+    }
 }

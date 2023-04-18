@@ -3,11 +3,7 @@ import models.settings as settings
 
 defaultSettings = settings.defaultSettings
 
-defaultPresetHandler = {
-    "presetNames": {
-        
-    }
-}
+defaultPresetHandler = {}
 
 descriptions = commands.descriptions
 

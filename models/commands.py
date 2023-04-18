@@ -6,16 +6,18 @@ descriptions = {
 lessImportantCommands = {
     "cmd": {
         "description": "Launches commandprompt.",
-        "function": """command = \"{}\";import os;
-if command == \"\":
-    os.system(\"cmd\");
-else: 
-    os.system(\"cmd /k \" + command)""",
+        "function": """\ncommand = "{}"\nkeep = {}\nimport os\nif keep == True:\n    msg = "cmd /k "\nelse:\n    msg = ""\nif command == "":\n    os.system("cmd")\nelse: \n    os.system(msg + command)\n""",
         "parameters": {
             "var1": {
                 "default": "",
                 "given": "-cmd",
                 "description": "An command to run in the commandprompt."
+            },
+            "var2": {
+                "default": "False",
+                "given": "-k",
+                "description": "Keep cmd open after command is done. (might break multi-line commands)",
+                "options": ["True", "False"]
             }
         },
         "category": ["default", "tool", "less important"]

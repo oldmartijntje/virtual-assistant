@@ -31,4 +31,3 @@ Be carefull not to make a function to delete System32😉
     - importHandler.getLibraryData(name)
     - preset.handler.getPresets()
     - preset.handler.getPresetData(name)
-

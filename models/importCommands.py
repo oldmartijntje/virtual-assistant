@@ -33,7 +33,13 @@ libraries = {
                     }
                 },
                 "category": ["Funpack", "effects"],
-                "description": "Display a message in a cow",
+                "description": "Display a message in a cow.",
+                "metaData": {
+                    "name": "CowSay command.",
+                    "author": "OldMartijntje",
+                    "version": "1.0.0",
+                    "description": "Using the https://pypi.org/project/cowsay/ library."
+                }
             }
         }
     }
