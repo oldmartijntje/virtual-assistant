@@ -37,6 +37,16 @@ defaultSettings = {
         ],
         "presetsCanHaveCustomExitCommands": False
     },
+    "async": {
+        "perLoopCommands": [
+            "print -txt testing async!"
+        ],
+        "enable": True,
+        "enableCommands": True,
+        "loopTime": 1
+        # "loopTime": 1 = 1 second
+
+    },
     "flaggedWords": [
         "flaggedWordExample"
     ],

@@ -6,6 +6,12 @@ You can even program your own functions.
 
 Be carefull not to make a function to delete System32😉
 
+### Run
+
+Use run.py to run it normally.
+
+Use runAsync.py to run it with threading, being able to run commands in the background.
+
 ## my todo list:
 - list a list of all categories
 - import command packs
