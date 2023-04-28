@@ -38,14 +38,30 @@ defaultSettings = {
         "presetsCanHaveCustomExitCommands": False
     },
     "async": {
-        "perLoopCommands": [
-            "print -txt testing async!"
-        ],
-        "enable": True,
-        "enableCommands": True,
-        "loopTime": 1
-        # "loopTime": 1 = 1 second
-
+        "enabled": True,
+        "commands": {
+            "perLoopCommands": [
+                "print -txt testing async!"
+            ],
+            "enabled": True,
+            "loopTime": 1,
+            # "loopTime": 1 = 1 second
+        },
+        "network": {
+            "enabled": False,   
+            "client": {
+                "enabled": False,
+                "host": "127.0.0.1",
+                "port": 1234,
+                "username": "default",
+                "retries": 20
+            },
+            "server": {
+                "enabled": False,
+                "port": 1234,
+                "username": "default"
+            }
+        }
     },
     "flaggedWords": [
         "flaggedWordExample"

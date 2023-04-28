@@ -34,12 +34,12 @@ else:
     from playsound import playsound;playsound(path + sound);""",
         "parameters" : {
             "var1": {
-                "default": "test.mp3",
+                "default": "newSup.mp3",
                 "given": "-sound",
                 "description": "The sound file."
             },
             "var2": {
-                "default": "configuration/",
+                "default": "data/audio/",
                 "given": "-path",
                 "description": "The path to the sound file."
             },
@@ -152,13 +152,19 @@ if load != \"\":
 defaultCommands = {
     "exit": {
         "description": "Exits the program.",
-        "function": "exit()",
-        "parameters": {},
+        "function": "where=\'{}\'\ntry:\n    global activeThreadStopper\n    activeThreadStopper.stopped = True\n    activeThreadStopper.stoppedByThread = where\nexcept Exception as e:\n    print(\'fail \' + e);exit()",
+        "parameters": {
+            "var1": {
+                "default": "",
+                "given": "-where",
+                "description": "Where did it get stopped from?"
+            },
+        },
         "category": ["default"],
         "metaData": {
             "name" : "Exit command",
             "description" : "The built in exit command of the virtualBBQduck program.",
-            "version" : "1.0.0",
+            "version" : "2.0.0",
             "author" : "OldMartijntje"
         }
     },

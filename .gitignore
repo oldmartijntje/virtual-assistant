@@ -40,7 +40,7 @@ defaultFunctions.json
 defaultCommands.json
 configuration/presetData
 personal/
-data/
+data/json/
 virtualAssistantEnv/
 
 # Installer logs

@@ -5,7 +5,7 @@ import models.preset as preset
 import setup as setup
 import handlers.textHandler as textHandler
 
-def givenInput(input):
+def givenInput(input, activeThreadStopper = None):
     logger.debug(f'loop: {preset.currentPreset.data["loop"]}')
     preset.currentPreset.data["loop"] +=1
     settings = setup.readJson("configuration/settings.json")
@@ -56,7 +56,7 @@ def givenInput(input):
                 flagged = True
         if flagged == False:
             try:
-                exec(function)
+                exec(function, {"activeThreadStopper": activeThreadStopper})
             except Exception as e:
                 logger.error(f'Error: {e}')
                 textHandler.textController(f'Error: {e}', {}, False)

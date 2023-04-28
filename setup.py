@@ -1,5 +1,8 @@
 import models.commands as commands
 import models.settings as settings
+import models.data as data
+
+defaultData = data.defaultData
 
 defaultSettings = settings.defaultSettings
 
@@ -61,6 +64,8 @@ if (settings["logging"]["enabled"] == True):
 create_directory("configuration")
 create_directory("configuration/presetData")
 create_directory("data")
-create_directory("data/personal")
+create_directory("data/audio")
+create_directory("data/json")
+createJsonIfNotExists("data/json/personalData.json", defaultData)
 createJsonIfNotExists("configuration/presetData/presetHandler.json", defaultPresetHandler)
 createJsonIfNotExists("configuration/defaultCommands.json", defaultCommands)

@@ -59,3 +59,13 @@ def createCommand(name, function, parameters = []):
     setup.writeJson("configuration/defaultCommands.json", defaultCommand)
     preset.currentPreset.data["commands"] = defaultCommand
     preset.savePreset()
+
+def hide_ip_address(ip_address):
+    # Split the IP address into four octets
+    octets = str(ip_address).split('.')
+    
+    # Replace the second and third octets with asterisks
+    octets[1:3] = ['*' * len(octets[1]), '*' * len(octets[2])]
+    
+    # Join the octets back together with dots and return the masked IP address
+    return '.'.join(octets)
