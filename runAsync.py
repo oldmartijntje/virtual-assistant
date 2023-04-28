@@ -44,12 +44,11 @@ def wait_for_input():
 
 def handle_scheduled_tasks():
     while not activeThreadStopper.stopped:
-        print(activeThreadStopper.stopped)
         # perform scheduled tasks and stuff
         settings = setup.readJson("configuration/settings.json")
         if settings["async"]["commands"]["enabled"]:
             for item in setup.readJson("configuration/settings.json")["async"]["commands"]["perLoopCommands"]:
-                inputHandler.givenInput(item)
+                inputHandler.givenInput(item, data)
                 preset.currentPreset.data["loop"] = 0
         time.sleep(settings["async"]["commands"]["loopTime"])
 

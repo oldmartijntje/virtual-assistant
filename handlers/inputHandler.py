@@ -5,7 +5,7 @@ import models.preset as preset
 import setup as setup
 import handlers.textHandler as textHandler
 
-def givenInput(input, activeThreadStopper = None):
+def givenInput(input, activeThreadStopper = False):
     logger.debug(f'loop: {preset.currentPreset.data["loop"]}')
     preset.currentPreset.data["loop"] +=1
     settings = setup.readJson("configuration/settings.json")
@@ -56,7 +56,10 @@ def givenInput(input, activeThreadStopper = None):
                 flagged = True
         if flagged == False:
             try:
-                exec(function, {"activeThreadStopper": activeThreadStopper})
+                if "useSpecialParameters" in defaultCommand[splittedCommand[0]] and defaultCommand[splittedCommand[0]]["useSpecialParameters"] == True:
+                    exec(function, {"activeThreadStopper": activeThreadStopper})
+                else:
+                    exec(function)
             except Exception as e:
                 logger.error(f'Error: {e}')
                 textHandler.textController(f'Error: {e}', {}, False)

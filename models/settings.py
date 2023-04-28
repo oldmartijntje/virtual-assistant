@@ -41,7 +41,7 @@ defaultSettings = {
         "enabled": True,
         "commands": {
             "perLoopCommands": [
-                "print -txt testing async!"
+                "print -txt 'testing async!'"
             ],
             "enabled": True,
             "loopTime": 1,

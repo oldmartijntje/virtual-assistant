@@ -37,3 +37,13 @@ Use runAsync.py to run it with threading, being able to run commands in the back
     - importHandler.getLibraryData(name)
     - preset.handler.getPresets()
     - preset.handler.getPresetData(name)
+- commands that do the following:
+    - send messages to the connected device
+    - ask connected device to do something for me
+    - commands to add things to memory
+    - commands to forceClose a thread
+    - commands to disconnect from server / switch server
+    - putting reminders
+    - edititng reminders
+    - changing list of commands allowed to be used by client connected on server
+- list of commands allowed to be used by client connected on server

@@ -12,7 +12,7 @@ libraries = {
         },
         "commands": {
             "cowSay": {
-                "function": "import cowsay;textHandler.textController(cowsay.{}(\"{}\"), chatEffect = {}, feedback = True)",
+                "function": "import handlers.textHandler as textHandler;import cowsay;textHandler.textController(cowsay.{}(\"{}\"), chatEffect = {}, feedback = True)",
                 "parameters": {
                     "var1": {
                         "given": "-animal",
@@ -23,7 +23,7 @@ libraries = {
                     "var2": {
                         "given": "-txt",
                         "default": "Hello World!",
-                        "description": "Cow to be used"
+                        "description": "Text to display."
                     },
                     "var3": {
                         "default": "True",

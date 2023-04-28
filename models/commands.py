@@ -152,21 +152,16 @@ if load != \"\":
 defaultCommands = {
     "exit": {
         "description": "Exits the program.",
-        "function": "where=\'{}\'\ntry:\n    global activeThreadStopper\n    activeThreadStopper.stopped = True\n    activeThreadStopper.stoppedByThread = where\nexcept Exception as e:\n    print(\'fail \' + e);exit()",
-        "parameters": {
-            "var1": {
-                "default": "",
-                "given": "-where",
-                "description": "Where did it get stopped from?"
-            },
-        },
+        "function": "try:\n    activeThreadStopper.stopped = True\nexcept:\n    exit()",
+        "parameters": {},
         "category": ["default"],
         "metaData": {
             "name" : "Exit command",
             "description" : "The built in exit command of the virtualBBQduck program.",
-            "version" : "2.0.0",
+            "version" : "2.1.0",
             "author" : "OldMartijntje"
-        }
+        },
+        "useSpecialParameters": True
     },
     "print": {
         "description": "Prints the given text.",
