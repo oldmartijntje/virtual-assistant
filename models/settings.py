@@ -25,10 +25,7 @@ defaultSettings = {
     },
     "startup": {
         "startupCommands": [
-            "playSound -ignoreError True",
-            "clearConsole",
-            "print -txt \"Welcome to the virtual BBQ duck!\\n\\nType any command to begin\\nIf you find yourself stuck, 'help' and 'list' might help you!\"",
-            "playSound"
+            "print -txt \"Welcome to the virtual BBQ duck!\\n\\nType any command to begin\\nIf you find yourself stuck, 'help', 'list' and 'listCategories' might help you!\""
             ]
     },
     "exit": {
@@ -43,7 +40,7 @@ defaultSettings = {
             "perLoopCommands": [
                 "print -txt 'testing async!'"
             ],
-            "enabled": True,
+            "enabled": False,
             "loopTime": 1,
             # "loopTime": 1 = 1 second
         },

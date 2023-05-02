@@ -16,15 +16,11 @@ import models.threadStopper as threadStopper
 activeThreadStopper = threadStopper.Stopper()
 
 def exit_handler():
-    global data
     for item in setup.readJson("configuration/settings.json")["exit"]["exitCommands"]:
         inputHandler.givenInput(item)
         preset.currentPreset.data["loop"] = 0
     if preset.currentPreset.data["settings"]["autoSave"] == True:
         preset.savePreset()
-    logger.info('Going to overwrite Data')
-    setup.createJsonIfNotExists("data/json/personalData.json", data, True)
-    logger.info('Data overwritten')
     if setup.readJson("configuration/settings.json")["exit"]["presetsCanHaveCustomExitCommands"]:
         for item in preset.currentPreset.data["exitCommands"]:
             inputHandler.givenInput(item)
@@ -48,7 +44,7 @@ def handle_scheduled_tasks():
         settings = setup.readJson("configuration/settings.json")
         if settings["async"]["commands"]["enabled"]:
             for item in setup.readJson("configuration/settings.json")["async"]["commands"]["perLoopCommands"]:
-                inputHandler.givenInput(item, data)
+                inputHandler.givenInput(item)
                 preset.currentPreset.data["loop"] = 0
         time.sleep(settings["async"]["commands"]["loopTime"])
 

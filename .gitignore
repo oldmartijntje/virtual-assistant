@@ -42,6 +42,7 @@ configuration/presetData
 personal/
 data/json/
 virtualAssistantEnv/
+debug/
 
 # Installer logs
 pip-log.txt

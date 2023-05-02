@@ -13,7 +13,6 @@ Use run.py to run it normally.
 Use runAsync.py to run it with threading, being able to run commands in the background.
 
 ## my todo list:
-- list a list of all categories
 - import command packs
 - update default commands using Update command
 - add param to loadDefaultCommands to auto import imported commands
@@ -24,6 +23,9 @@ Use runAsync.py to run it with threading, being able to run commands in the back
     - loading preset
     - programming preset
     - preset memory
+        - sentance -> command converter
+        - replace parts of command with memorized data
+        - ask something that it knows
     - autosave preset memory
 - critical windows file protection (basics work)
 - password for creating a new command
@@ -47,3 +49,5 @@ Use runAsync.py to run it with threading, being able to run commands in the back
     - edititng reminders
     - changing list of commands allowed to be used by client connected on server
 - list of commands allowed to be used by client connected on server
+- reference commands: dh -> help, dl -> list
+- run commands before running them, for logging or quest systems
