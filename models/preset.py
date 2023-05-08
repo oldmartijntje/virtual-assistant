@@ -38,6 +38,12 @@ defaultPresetData = {
         "version": "1.0.0",
         "description": "Default preset."
     },
+    "self": {
+        "nick": "user",
+        "presetName": "Default",
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "nameHistory": []
+    }
 }
 # only the last effect in the list will be checked for "feedback": False
 
@@ -47,11 +53,15 @@ class Preset:
     """
     import uuid
     
-    def __init__(self, nickname="user", presetName="Default", presetID=uuid.uuid4(), presetData=defaultPresetData):
+    def __init__(self, nickname="user", presetName="Default", presetID=str(uuid.uuid4()), presetData=defaultPresetData):
         self.nick = nickname
         self.presetName = presetName
         self.Id = presetID
         self.data = presetData
+        self.data["self"]["nick"] = self.nick
+        self.data["self"]["presetName"] = self.presetName
+        self.data["self"]["Id"] = self.Id
+        self.data["self"]["nameHistory"] = [self.presetName]
         
         logger.debug(f'created Preset: {self.presetName} with ID: {self.Id} and nickname: {self.nick}')
     
@@ -71,6 +81,15 @@ class Preset:
         :return: A description of what the method returns.
         """
         # implementation here
+
+    def savePresetToFile(self):
+        global handler
+        import setup
+        self.data["self"]["presetName"] = self.presetName
+        handler.changePresetName(self.Id, self.presetName, self.data["self"]["nameHistory"][0])
+        self.data["self"]["nameHistory"] = [self.presetName]
+        setup.createJsonIfNotExists(f"configuration/presetData/preset{self.Id}.json", self.data, True)
+        logger.info(f'saved {self.Id} preset to file')
 
 class PresetHandler:
     def __init__(self, data={}):
@@ -123,6 +142,21 @@ class PresetHandler:
         import setup
         logger.debug(f'getPresetById called w presetId: "{presetId}"')
         return setup.readJson(f"configuration/presetData/{presetId}.json")
+    
+    def changePresetName(self, presetId, newName, oldName):
+        logger.debug(f'changePresetName called w presetId: "{presetId}", newName: "{newName}", oldName: "{oldName}"')
+        if newName == oldName:
+            return
+        if newName in self.data["presetNames"]:
+            self.data["presetNames"][newName].append(presetId)
+        else:
+            self.data["presetNames"][newName] = [presetId]
+        if oldName in self.data["presetNames"] and presetId in self.data["presetNames"][oldName]:
+            self.data["presetNames"][oldName].remove(presetId)
+        if oldName in self.data["presetNames"] and len(self.data["presetNames"][oldName]) == 0:
+            del self.data["presetNames"][oldName]
+        self.exportData()
+
 
 currentPreset = Preset()
 handler = PresetHandler()
@@ -134,6 +168,8 @@ def getPreset():
     return currentPreset.presetName
 
 def savePreset(chatEffect, feedback=True):
+    global currentPreset
+    currentPreset.savePresetToFile()
     textHandler.textController(f"Preset save placeholder", chatEffect=chatEffect, feedback=feedback)
 
 def loadPreset(presetName, chatEffect, feedback=True):
