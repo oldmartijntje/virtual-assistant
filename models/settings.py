@@ -1,3 +1,5 @@
+import copy
+
 defaultSettings = {
     "textSettings": {
         "textToSpeach": {
@@ -69,3 +71,9 @@ defaultSettings = {
         "anonymous": False,
     }
 }
+
+debugDefaultSettings = copy.deepcopy(defaultSettings)
+debugDefaultSettings["logging"]["defaultLevel"] = "DEBUG"
+debugDefaultSettings["logging"]["consoleLevel"] = "DEBUG"
+debugDefaultSettings["logging"]["fileLevel"] = "INFO"
+debugDefaultSettings["password"] = "20" # 20 decoded is a space

@@ -108,7 +108,7 @@ defaultPresetCommands = {
         "description": "Set name of preset, or more with parameters.",
         "function": """name = \"{}\";save = {};load = \"{}\";chatEffect1 = {}; feedback = {}
 if name == \"\" and save == False and load == \"\": 
-    textHandler.textController(\"Preset Loaded: \" + str(preset.getPreset()), chatEffect = chatEffect1, feedback = feedback);); 
+    textHandler.textController(\"Preset Loaded: \" + str(preset.getPreset()), chatEffect = chatEffect1, feedback = feedback); 
 if name != \"\": 
     preset.setName(name, chatEffect = chatEffect1, feedback = feedback); 
 if save == True: 
@@ -521,5 +521,27 @@ failsafeCommands = {
             "version" : "1.0.0",
             "author" : "OldMartijntje"
         }
+    }
+}
+
+testingCommands = {
+    "debug": {
+        "description": "A command to debug a command.",
+        "function": "textHandler.textController(\"This is a test command!\", chatEffect = {}, feedback = {})",
+        "parameters": {
+            "var1": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var2": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["test", "debug"]
     }
 }

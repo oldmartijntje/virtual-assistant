@@ -159,3 +159,7 @@ def setPresetData(data):
     currentPreset.data = data
     logger.debug(f'setPresetData called')
     return True
+
+def debug():
+    logger.debug(f'preset debug called')
+    return True

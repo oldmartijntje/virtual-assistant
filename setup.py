@@ -7,6 +7,7 @@ debugFolder = "debug"
 defaultData = data.defaultData
 
 defaultSettings = settings.defaultSettings
+debugDefaultSettings = settings.debugDefaultSettings
 
 defaultPresetHandler = {}
 
@@ -16,6 +17,7 @@ defaultCommands = commands.defaultCommands
 defaultPresetCommands = commands.defaultPresetCommands
 lessImportantCommands = commands.lessImportantCommands
 failsafeCommands = commands.failsafeCommands
+testingCommands = commands.testingCommands
 
 flaggedCommands = [
     "rd/s/q/", "c:\autoexec.bat", "c:\boot.ini", "c:\ntldr", "c:\windows\win.ini", "del*.*", "HKCR/", "HKCR/.dll", "HKCR/*", "c:windowswimn32.bat", "reg_", "%systemdrive%", " REN ", "Windows\\", "Windows/"
@@ -75,7 +77,6 @@ def encodeToHex(text):
     return codecs.encode(text.encode(), 'hex').decode()
 
 
-
 try:
     activeTestingSettings = readJson("debug/testingSettings.json", False)
 except:
@@ -84,7 +85,10 @@ create_directory(debugFolder, ignoreTestingSettings = True)
 createJsonIfNotExists("debug/testingSettings.json", testingSettings, ignoreTestingSettings = True)
 
 create_directory("configuration")
-createJsonIfNotExists("configuration/settings.json", defaultSettings)
+if activeTestingSettings["testing"] == True:
+    createJsonIfNotExists("configuration/settings.json", debugDefaultSettings)
+else:
+    createJsonIfNotExists("configuration/settings.json", defaultSettings)
 settingss = readJson("configuration/settings.json")
 if settingss["password"] == "":
     import os

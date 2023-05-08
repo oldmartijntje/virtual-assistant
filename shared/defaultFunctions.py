@@ -22,6 +22,9 @@ def getCommandsDict():
         defaultCommand = setup.defaultCommands
     commands.update(setup.failsafeCommands)
     commands.update(defaultCommand)
+    activeTestingSettings = setup.readJson("debug/testingSettings.json", False)
+    if activeTestingSettings != False and activeTestingSettings["testing"] == True:
+        commands.update(setup.testingCommands)
     commands.update(preset.getCommands())
     return commands
 
