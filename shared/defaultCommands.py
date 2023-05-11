@@ -1,3 +1,4 @@
+import setup
 from shared.logger import logger
 import shared.defaultFunctions as defaultFunctions
 import models.preset as preset
@@ -125,8 +126,11 @@ def getMetaData(name, typeOfData):
             if (name in defaultFunctions.getCommandsDict()):
                 data = defaultFunctions.getCommandsDict()[name]
         case "preset":
-            if (name in preset.handler.getPresets()):
-                data = preset.handler.getPresetData(name)
+            if (setup.readJson(f"configuration/presetData/preset{name}.json") != False):
+                data = preset.getMetaDataById(name)
+                return data
+            else:
+                return False
         case "library":
             if (name in importHandler.getLibraries()):
                 data = importHandler.getLibraryData(name)
@@ -141,3 +145,9 @@ def getMetaData(name, typeOfData):
     else:
         return False
     
+def getCommandCode(command):
+    logger.debug(f'getCommandCode called: {command}')
+    if (command in defaultFunctions.getCommandsDict()):
+        return defaultFunctions.getCommandsDict()[command]["function"]
+    else:
+        return False

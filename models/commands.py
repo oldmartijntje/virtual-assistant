@@ -106,7 +106,7 @@ else:
 defaultPresetCommands = {
     "preset" : {
         "description": "Set name of preset, or more with parameters.",
-        "function": """name = \"{}\";save = {};load = \"{}\";chatEffect1 = {}; feedback = {}
+        "function": """name = \"{}\";save = {};load = \"{}\";chatEffect1 = {}; feedback = {}; list = \"{}\";
 if name == \"\" and save == False and load == \"\": 
     textHandler.textController(\"Preset Loaded: \" + str(preset.getPreset()), chatEffect = chatEffect1, feedback = feedback); 
 if name != \"\": 
@@ -114,7 +114,9 @@ if name != \"\":
 if save == True: 
     preset.savePreset(chatEffect = chatEffect1, feedback = feedback); 
 if load != \"\": 
-    preset.loadPreset(load, chatEffect = chatEffect1, feedback = feedback)""",
+    preset.loadPreset(load, chatEffect = chatEffect1, feedback = feedback)
+if list != \"False\" and list != \"\":
+    textHandler.textController(preset.getFormattedPresetList(list), chatEffect = chatEffect1, feedback = feedback)""",
         "parameters": {
             "var1": {
                 "default": "",
@@ -130,7 +132,7 @@ if load != \"\":
             "var3": {
                 "default": "",
                 "given": "-load",
-                "description": "Load a preset."
+                "description": "Load a preset by ID."
             },
             "var4": {
                 "default": "True",
@@ -143,6 +145,12 @@ if load != \"\":
                 "given": "-feedback",
                 "description": descriptions["feedback"],
                 "options": ["True", "False"]
+            },
+            "var6": {
+                "default": "False",
+                "given": "-list",
+                "description": "List all presets.",
+                "options": ["True", "A Name To search", "False"]
             }
         },
         "category": ["default", "preset"]
@@ -254,6 +262,36 @@ defaultCommands = {
         "metaData": {
             "name" : "list command",
             "description" : "The built in list command of the virtualBBQduck program.",
+            "version" : "1.0.0",
+            "author" : "OldMartijntje"
+        }
+    },
+    "printCommandCode": {
+        "description": "Prints the code of the given command.",
+        "function": "textHandler.textController(defaultCommands.getCommandCode(\"{}\"), chatEffect = {}, feedback = {})",
+        "parameters": {
+            "var1": {
+                "default": "help",
+                "given": "-cmd",
+                "description": "The command to display help for."
+            },
+            "var2": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var3": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["default", "help"],
+        "metaData": {
+            "name" : "printCommandCode command",
+            "description" : "The built in printCommandCode command of the virtualBBQduck program.",
             "version" : "1.0.0",
             "author" : "OldMartijntje"
         }

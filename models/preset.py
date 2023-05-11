@@ -65,14 +65,17 @@ class Preset:
         
         logger.debug(f'created Preset: {self.presetName} with ID: {self.Id} and nickname: {self.nick}')
     
-    def method1(self, arg3):
-        """
-        A brief description of what method1 does.
+    def changeMetaData(self, name, author, version, description):
+        if name != "":
+            self.data["metaData"]["name"] = name
+        if author != "":
+            self.data["metaData"]["author"] = author
+        if version != "":
+            self.data["metaData"]["version"] = version
+        if description != "":
+            self.data["metaData"]["description"] = description
+        logger.info(f'changed metaData of {self.Id} preset to: {self.data["metaData"]}')
 
-        :param arg3: A description of the third argument.
-        :return: A description of what the method returns.
-        """
-        # implementation here
     
     def method2(self):
         """
@@ -90,6 +93,19 @@ class Preset:
         self.data["self"]["nameHistory"] = [self.presetName]
         setup.createJsonIfNotExists(f"configuration/presetData/preset{self.Id}.json", self.data, True)
         logger.info(f'saved {self.Id} preset to file')
+
+    def loadPresetFromFile(self, id):
+        import setup
+        data = setup.readJson(f"configuration/presetData/preset{id}.json")
+        if data == False:
+            return False
+        else:
+            self.data = data
+            self.Id = id
+            self.presetName = self.data["self"]["presetName"]
+            self.nick = self.data["self"]["nick"]
+            logger.info(f'loaded {self.Id} preset from file')
+            return True
 
 class PresetHandler:
     def __init__(self, data={}):
@@ -124,11 +140,12 @@ class PresetHandler:
         setup.createJsonIfNotExists(self.storage, self.data, True)
         logger.debug(f'exported data to: {self.storage}')
 
-    def getPresetsByName(self, name = ""):
-        logger.debug(f'getPresetsByName called w name: "{name}"')
-        if name == "":
-            return self.data["presetNames"]
-        return self.data["presetNames"][name]
+    def find_by_name(self, substring):
+        matching_items = []
+        for key in self.data['presetNames'].keys():
+            if substring in key:
+                matching_items += self.data['presetNames'][key]
+        return matching_items
     
     def getMetaDataById(self, presetId):
         import setup
@@ -136,12 +153,31 @@ class PresetHandler:
         if presetId in self.data["packages"]:
             return self.data["packages"][presetId]["metaData"]
         else:
-            return setup.readJson(f"configuration/presetData/{presetId}.json")["metaData"]
+            data = setup.readJson(f"configuration/presetData/preset{presetId}.json")
+            if data == False:
+                return False
+            if "metaData" in data:
+                return data["metaData"]
+            return ['No metaData found']
+        
+    def getPresetNameById(self, presetId):
+        import setup
+        logger.debug(f'getPresetNameById called w presetId: "{presetId}"')
+        if presetId in self.data["packages"]:
+            return self.data["packages"][presetId]["self"]["presetName"]
+        else:
+            data = setup.readJson(f"configuration/presetData/preset{presetId}.json")
+            if data == False:
+                return False
+            if "self" in data:
+                return data["self"]["presetName"]
+            return ['No presetName found']
+        
     
     def getPresetById(self, presetId):
         import setup
         logger.debug(f'getPresetById called w presetId: "{presetId}"')
-        return setup.readJson(f"configuration/presetData/{presetId}.json")
+        return setup.readJson(f"configuration/presetData/preset{presetId}.json")
     
     def changePresetName(self, presetId, newName, oldName):
         logger.debug(f'changePresetName called w presetId: "{presetId}", newName: "{newName}", oldName: "{oldName}"')
@@ -170,10 +206,18 @@ def getPreset():
 def savePreset(chatEffect, feedback=True):
     global currentPreset
     currentPreset.savePresetToFile()
-    textHandler.textController(f"Preset save placeholder", chatEffect=chatEffect, feedback=feedback)
+    textHandler.textController(f"Preset saved", chatEffect=chatEffect, feedback=feedback)
 
-def loadPreset(presetName, chatEffect, feedback=True):
-    textHandler.textController(f"Preset load placeholder", chatEffect=chatEffect, feedback=feedback)
+def loadPreset(presetId, chatEffect, feedback=True):
+    if currentPreset.loadPresetFromFile(presetId):
+        textHandler.textController(f"Preset loaded", chatEffect=chatEffect, feedback=feedback)
+    else:
+        textHandler.textController(f"Preset not found", chatEffect=chatEffect, feedback=feedback)
+
+def getListOfPresetsByName(filterText):
+    global handler
+    logger.debug(f'getListOfPresets called')
+    return handler.find_by_name(filterText)
 
 def setName(name, chatEffect, feedback=True):
     global currentPreset
@@ -199,3 +243,29 @@ def setPresetData(data):
 def debug():
     logger.debug(f'preset debug called')
     return True
+
+def getMetaDataById(presetId):
+    return handler.getMetaDataById(presetId)
+
+def getFormattedMetaDataById(presetId):
+    metaData = getMetaDataById(presetId)
+    name = handler.getPresetNameById(presetId)
+    nameText = ""
+    if name == False:
+        nameText = "No name found"
+    else:
+        nameText = f"'{name}'"
+    if metaData == False:
+        return f"-Preset: '{presetId}'\n   404 Not found"
+    if type(metaData) == list:
+        return f"-Preset: '{presetId}'\n   FilterName: {nameText}\n   {metaData[0]}"
+    return f"-Preset: {presetId}\n   FilterName: {nameText}\n   Metadata name: '{metaData['name']}' by {metaData['author']}\n   {metaData['description']}"
+
+def getFormattedPresetList(filterText):
+    if filterText == 'True':
+        filterText = ""
+    text = ""
+    presetList = getListOfPresetsByName(filterText)
+    for preset in presetList:
+        text += getFormattedMetaDataById(preset) + "\n"
+    return text
