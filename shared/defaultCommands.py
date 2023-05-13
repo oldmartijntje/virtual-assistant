@@ -30,9 +30,9 @@ def getInfoFromCommand(command, parameters = False, categories = False, defaultP
             returnText += f'The parameters of the \"{command}\" command are:\n\n'
             for key in list(data.keys()):
                 if ("description" in data[key] and data[key]["description"] != ""):
-                    returnText += f'    {data[key]["given"]}: {data[key]["description"]}\n'
+                    returnText += f'    \'{data[key]["given"]}\': {data[key]["description"]}\n'
                 else:
-                    returnText += f'    {data[key]["given"]}: No description\n'
+                    returnText += f'    \'{data[key]["given"]}\': No description\n'
                 if defaultParameters:
                     returnText += f'    Default value: {data[key]["default"]}\n'
                     if "options" in data[key] and len(data[key]["options"]) > 0:
@@ -58,7 +58,8 @@ def listCommands(filerCategory = '', maxCharacters: int = 40):
     else:
         returnText = 'The commands are:\n'
     for key in list(defaultFunctions.getCommandsDict().keys()):
-        if (filerCategory == '' or filerCategory in defaultFunctions.getCommandsDict()[key]["category"]):
+        cmd = defaultFunctions.getCommandsDict()[key]
+        if (filerCategory == '' or 'category' in cmd and filerCategory in cmd["category"]):
             if "description" in defaultFunctions.getCommandsDict()[key]:
                 returnText += f'    {key}: {defaultFunctions.maxLength(defaultFunctions.getCommandsDict()[key]["description"], maxCharacters)}\n'
             else:

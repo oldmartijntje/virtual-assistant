@@ -3,7 +3,7 @@ def textController(text, settings = {}, chatEffect = True, feedback=True):
     from shared.logger import logger
     import setup as setup
     import models.preset as preset
-    logger.debug('textController called')
+    logger.debug('textHandler called')
     if (settings == {}):
         try:
             settings = setup.readJson("configuration/settings.json")
@@ -31,12 +31,13 @@ def textController(text, settings = {}, chatEffect = True, feedback=True):
                         for item in list(presetData["effects"][effect]["replaceText"].keys()):
                             text = text.replace(item, presetData["effects"][effect]["replaceText"][item])
 
-                    for item in presetData["effects"][effect]["runTextInCommands"]:
-                        newText = text
-                        newText = newText.replace("\"", "\\\"")
-                        newText = newText.replace("\n", "\\n")
-                        newText = newText.replace("\'", "\\\'")
-                        inputHandler.givenInput(item.format(newText))
+                    if effect in presetData["effects"] and "runTextInCommands" in presetData["effects"][effect]:
+                        for item in presetData["effects"][effect]["runTextInCommands"]:
+                            newText = text
+                            newText = newText.replace("\"", "\\\"")
+                            newText = newText.replace("\n", "\\n")
+                            newText = newText.replace("\'", "\\\'")
+                            inputHandler.givenInput(item.format(newText))
                     
 
         

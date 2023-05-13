@@ -154,6 +154,97 @@ if list != \"False\" and list != \"\":
             }
         },
         "category": ["default", "preset"]
+    },
+    "activeEffect" : {
+        "description": "Set/edit/get the active effect.",
+        "function": """effect = \"{}\"; mode = \"{}\"; chatEffect1 = {}; feedback = {};
+if effect == \"\":
+    textHandler.textController(\"Active Effects: \" + str(preset.getActiveEffect()), chatEffect = chatEffect1, feedback = feedback);
+else:
+    if mode.lower() == \"remove\":
+        preset.removeActiveEffect(effect);
+    else:
+        preset.setActiveEffect(effect);""",
+        "parameters": {
+            "var1": {
+                "default": "",
+                "given": "-effect",
+                "description": "Set/remove the active effect."
+            },
+            "var2": {
+                "default": "Set",
+                "given": "-mode",
+                "description": "To set or remove the effect.",
+                "options": ["Set", "Remove"]
+            },
+            "var3": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["default", "preset"],
+    },
+    "createEffect" : {
+        "description": "Create a new effect.",
+        "function": """name = \"{}\"; json = \"{}\"; chatEffect1 = {}; feedback = {};
+if name == \"\":
+    textHandler.textController(\"Please give a name for the effect.\", chatEffect = chatEffect1, feedback = feedback);
+else:
+    preset.createEffect(name, json, chatEffect = chatEffect1, feedback = feedback);""",
+        "parameters": {
+            "var1": {
+                "default": "",
+                "given": "-name",
+                "description": "The name of the effect."
+            },
+            "var2": {
+                "default": "",
+                "given": "-json",
+                "description": "A filelocation where it can find the contents of the effect.",
+                "options": ["", "A random path + filename + .json"]
+            },
+            "var3": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var4": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["default", "preset"]
+    },
+    "listEffects" : {
+        "description": "List all effects.",
+        "function": """chatEffect1 = {}; feedback = {};
+preset.getEffectList(chatEffect = chatEffect1, feedback = feedback);""",
+        "parameters": {
+            "var1": {
+                "default": "True",
+                "given": "-chatEffect",
+                "description": descriptions["chatEffect"],
+                "options": ["True", "False"]
+            },
+            "var2": {
+                "default": "True",
+                "given": "-feedback",
+                "description": descriptions["feedback"],
+                "options": ["True", "False"]
+            }
+        },
+        "category": ["default", "preset"]
     }
 }
 

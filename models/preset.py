@@ -77,13 +77,42 @@ class Preset:
         logger.info(f'changed metaData of {self.Id} preset to: {self.data["metaData"]}')
 
     
-    def method2(self):
-        """
-        A brief description of what method2 does.
+    def getActiveEffects(self):
+        return self.data["settings"]["activeEffects"]
+    
+    def setActiveEffect(self, effect):
+        self.data["settings"]["activeEffects"].append(effect)
+        logger.info(f'added {effect} to activeEffects of {self.Id} preset')
 
-        :return: A description of what the method returns.
-        """
-        # implementation here
+    def removeActiveEffect(self, effect):
+        self.data["settings"]["activeEffects"].remove(effect)
+        logger.info(f'removed {effect} from activeEffects of {self.Id} preset')
+
+    def createEffect(self, effectName, effectData):
+        import setup
+        default = {"commands": {}, "text": {}, "replaceText": {}, "runTextInCommands": [], "feedback": True}
+        if effectData != '':
+            data = setup.readJson(effectData, False)
+            if data != False:
+                effectData = data
+            else:
+                return 'JSON file doesn\'t exist'
+            for item in default.keys():
+                if item not in effectData.keys():
+                    effectData[item] = default[item]
+        else:
+            effectData = default
+        if effectName in self.data["effects"].keys():
+            logger.error(f'effect {effectName} already exists in {self.Id} preset')
+            return f'effect {effectName} already exists in {self.Id} preset'
+
+            
+        self.data["effects"][effectName] = effectData
+        logger.info(f'created {effectName} effect in {self.Id} preset')
+        return True
+    
+    def getEffectList(self):
+        return list(self.data["effects"].keys())
 
     def savePresetToFile(self):
         global handler
@@ -269,3 +298,27 @@ def getFormattedPresetList(filterText):
     for preset in presetList:
         text += getFormattedMetaDataById(preset) + "\n"
     return text
+
+def getActiveEffect():
+    logger.debug(f'getActiveEffects called')
+    return currentPreset.getActiveEffects()
+
+def setActiveEffect(effect):
+    logger.debug(f'setActiveEffects called')
+    return currentPreset.setActiveEffect(effect)
+
+def removeActiveEffect(effect):
+    logger.debug(f'removeActiveEffects called')
+    return currentPreset.removeActiveEffect(effect)
+
+def createEffect(name, json, chatEffect=True, feedback=True):
+    logger.debug(f'createEffect called')
+    created = currentPreset.createEffect(name, json)
+    if created == True:
+        textHandler.textController(f"Effect created", chatEffect=chatEffect, feedback=feedback)
+    else:
+        textHandler.textController(f"{created}", chatEffect=chatEffect, feedback=feedback)
+
+def getEffectList(chatEffect=True, feedback=True):
+    logger.debug(f'getEffectList called')
+    textHandler.textController(currentPreset.getEffectList(), chatEffect=chatEffect, feedback=feedback)

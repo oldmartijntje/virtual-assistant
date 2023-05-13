@@ -51,3 +51,4 @@ Use runAsync.py to run it with threading, being able to run commands in the back
 - list of commands allowed to be used by client connected on server
 - reference commands: dh -> help, dl -> list
 - run commands before running them, for logging or quest systems
+- pointer commands: "RS" -> "loadDefaultCommands True True"
