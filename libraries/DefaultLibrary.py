@@ -14,4 +14,5 @@ class DefaultCommand(CommandModel.Command):
         self.data = []
 
     def RunThisCommand(command : dict) -> str:
+        print("Hello World!")
         pass
