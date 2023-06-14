@@ -2,9 +2,15 @@ from abc import ABC, abstractmethod
 
 class Command(ABC):
     
+    def __init__(self, name):
+        self.commandName = name
+
     @abstractmethod
     def RunThisCommand(command : dict) -> str:
         pass
+
+    def GetCommandName(self):
+        return self.commandName
 
 # class DerivedClass(Command):
     

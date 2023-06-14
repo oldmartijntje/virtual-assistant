@@ -9,3 +9,8 @@ import libraries.DefaultLibrary as DefaultLibrary
 
 lib = DefaultLibrary.DefaultLibrary()
 lib.listOfCommands[0].RunThisCommand()
+handler = CommandHandlerModel.CommandHandler()
+handler.AddLibrary(lib)
+handler.commandDict["test"].RunThisCommand()
+context = ContextModel.Context()
+assistance = AssistantModel.Assistant(context, handler)

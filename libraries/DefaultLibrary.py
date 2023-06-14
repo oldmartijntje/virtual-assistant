@@ -6,13 +6,17 @@ class DefaultLibrary(LibraryModel.Library):
         self.listOfCommands = []
         self.listOfCommands.append(DefaultCommand())
 
-    def GetCommands() -> list[CommandModel.Command]:
-        pass
+    def GetCommands(self) -> dict[str, CommandModel.Command]:
+        dictionary = {}
+        for command in self.listOfCommands:
+            dictionary[command.GetCommandName()] = command
+        return dictionary
 
 class DefaultCommand(CommandModel.Command):
     def __init__(self):
         self.data = []
+        super().__init__("test")
 
-    def RunThisCommand(command : dict) -> str:
+    def RunThisCommand(self, data : dict = {}) -> str:
         print("Hello World!")
         pass

@@ -4,7 +4,7 @@ import models.CommandModel as CommandModel
 class Library(ABC):
     
     @abstractmethod
-    def GetCommands() -> list[CommandModel.Command]:
+    def GetCommands() -> dict[str, CommandModel.Command]:
         pass
 
 # class DerivedClass(AbstractClass):
