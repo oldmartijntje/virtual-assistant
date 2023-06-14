@@ -8,9 +8,9 @@ import libraries.DefaultLibrary as DefaultLibrary
 # assistant = AssistantModel.Assistant(context, commandHandler)
 
 lib = DefaultLibrary.DefaultLibrary()
-lib.listOfCommands[0].RunThisCommand()
 handler = CommandHandlerModel.CommandHandler()
 handler.AddLibrary(lib)
-handler.commandDict["test"].RunThisCommand()
 context = ContextModel.Context()
 assistance = AssistantModel.Assistant(context, handler)
+assistance.ExecuteCommand("test 2 nice 'henk de steen'")
+assistance.ExecuteCommandByDict({"command" : "test", "arguments": [2, "nice", "henk de steen"]})

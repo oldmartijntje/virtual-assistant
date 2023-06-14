@@ -7,9 +7,12 @@ class Assistant:
         self.commandHandler = commandHandler
         self.context = context
 
-    def ExecuteCommand(command: str) -> None:
-        pass
+    def ExecuteCommand(self, command: str) -> None:
+        splittedCommand = self.commandHandler.SplitCommand(command)
+        splittedCommand = self.commandHandler.TranslateFromContext(splittedCommand, self.context)
+        commandDict = self.commandHandler.CommandToDict(splittedCommand)
+        self.ExecuteCommandByDict(commandDict)
 
-    def ExecuteCommandByDict(command: dict) -> None:
-        pass
+    def ExecuteCommandByDict(self, command: dict) -> None:
+        print(command)
     

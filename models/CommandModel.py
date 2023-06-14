@@ -6,7 +6,7 @@ class Command(ABC):
         self.commandName = name
 
     @abstractmethod
-    def RunThisCommand(command : dict) -> str:
+    def RunThisCommand(self, command : dict) -> str:
         pass
 
     def GetCommandName(self):
