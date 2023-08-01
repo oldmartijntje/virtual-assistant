@@ -1,84 +1,53 @@
 ﻿using System;
-using System.Threading;
+using System.Threading.Tasks;
 
-public class SharedDataExample
+public class VirtualAssistant
 {
-    private int henk = 0;
-    private int cheese = 0;
-    private int calls = 0;
-    private int last = 0;
-    private bool stop = false;
-    private object lockObject = new object();
-    private Random random = new Random();
-    private ManualResetEvent stopEvent = new ManualResetEvent(false);
-
-    public void Start()
+    // Logic to handle user input
+    public async Task HandleConsoleInputAsync()
     {
-        Thread thread1 = new Thread(() =>
+        while (true)
         {
-            while (!stop)
-            {
-                lock (lockObject)
-                {
-                    if (henk != last)
-                    {
-                        last = henk;
-                        Console.WriteLine("Thread 1 has access");
-                        if (henk > 5)
-                        {
-                            cheese++;
-                            Console.WriteLine("Henk: " + henk + ", Cheese: " + cheese + ", Calls: " + calls);
-                        }
-                    }
-                        
-                }
-            }
-        });
+            Console.Write("User: ");
+            string input = await Console.In.ReadLineAsync();
 
-        Thread thread2 = new Thread(() =>
-        {
-            Console.WriteLine("Thread 2 has started");
-            while (!stop)
-            {
-                lock (lockObject)
-                {
-                    Console.WriteLine("Thread 2 has access");
-                    henk = random.Next(1, 11);
-                    calls++;
-
-                    if (cheese > 9)
-                    {
-                        stopEvent.Set(); // Signal the other threads to stop
-                    }
-                }
-
-                Thread.Sleep(1000);
-            }
-        });
-
-        Thread thread3 = new Thread(() =>
-        {
-            stopEvent.WaitOne(); // Wait until the signal is received
-            Console.WriteLine("Yeet Lasagna");
-
-            lock (lockObject)
-            {
-                Console.WriteLine("Thread 3 has access");
-                stop = true;
-            }
-
-            // Stop all threads
-            thread1.Join();
-            thread2.Join();
-        });
-
-        thread1.Start();
-        thread2.Start();
-        thread3.Start();
-
-        // Wait for threads to finish (in this example, they run indefinitely)
-        // You can add logic here to stop the threads based on certain conditions if needed.
+            // Process the user input here
+            await ProcessInputAsync(input);
+        }
     }
 
-    
+    // Logic to process user input
+    public async Task ProcessInputAsync(string input)
+    {
+        // Perform your virtual assistant's logic here based on the user input
+        // For example, you can process commands, generate responses, etc.
+        await Task.Delay(1000); // Simulate processing time
+
+        // Print the response to the console
+        Console.WriteLine("Assistant: " + GenerateResponse(input));
+    }
+
+    // Generate a response based on user input
+    public string GenerateResponse(string input)
+    {
+        // Replace this with your actual response generation logic
+        return "This is a response to: " + input;
+    }
+
+    // Start the virtual assistant
+    public void Start()
+    {
+        // Run the HandleConsoleInputAsync method concurrently
+        _ = HandleConsoleInputAsync();
+
+        // Main thread or other logic can continue here
+        Console.WriteLine("Virtual Assistant started. Type your commands below:");
+
+        // Keep the main thread or any other logic running, if needed
+        while (true)
+        {
+            // You can do other tasks here if needed while the assistant is running.
+            // For example, if there's some background processing or other user interactions.
+        }
+    }
 }
